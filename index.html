@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Weekly Scorecard Dashboard</title>
+<style>
+:root{
+  --bg:#080b10;--s1:#0d1117;--s2:#131920;--s3:#1a2230;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#e2e8f0;--muted:#64748b;
+  --blue:#3b82f6;--cyan:#06b6d4;--green:#10b981;
+  --amber:#f59e0b;--red:#ef4444;--orange:#f97316;--violet:#8b5cf6;
+  --svc:#3b82f6;--tss:#10b981;--corey:#f97316;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:Segoe UI,system-ui,sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:28px 24px 60px;}
+header{display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:24px;margin-bottom:28px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:14px;}
+.logo h1{font-size:2rem;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#e2e8f0,#3b82f6 60%,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;}
+.logo p{font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px;}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.tab{font-size:0.72rem;padding:7px 15px;border-radius:7px;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--muted);transition:all 0.18s;font-family:inherit;white-space:nowrap;}
+.tab:hover{border-color:var(--border2);color:var(--text);}
+.tab.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 18px rgba(59,130,246,0.35);}
+.sh{display:flex;align-items:center;gap:10px;margin:30px 0 16px;}
+.sh .pip{width:4px;height:20px;border-radius:2px;flex-shrink:0;}
+.sh h2{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+.sh .rl{flex:1;height:1px;background:var(--border);}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-bottom:18px;}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px 15px;position:relative;overflow:hidden;transition:transform 0.18s,border-color 0.18s;}
+.kpi:hover{transform:translateY(-2px);border-color:var(--border2);}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:10px 10px 0 0;}
+.kpi.sv::after{background:var(--svc);}.kpi.ts::after{background:var(--tss);}.kpi.co::after{background:var(--corey);}
+.kpi-l{font-size:0.59rem;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;line-height:1.35;}
+.kpi-v{font-size:1.5rem;font-weight:700;line-height:1;color:var(--text);font-variant-numeric:tabular-nums;}
+.kpi-s{font-size:0.59rem;color:var(--muted);margin-top:3px;}
+.tw{background:var(--s1);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:18px;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.79rem;min-width:600px;}
+thead th{background:var(--s2);padding:10px 13px;font-size:0.59rem;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);text-align:right;white-space:nowrap;}
+thead th:first-child{text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);transition:background 0.12s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--s2);}
+tbody td{padding:10px 13px;text-align:right;font-size:0.76rem;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap;}
+tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
+.tr td{background:var(--s3);border-top:1px solid var(--border2);color:var(--cyan);font-weight:700;}
+.bdg{display:inline-block;padding:2px 8px;border-radius:20px;font-size:0.68rem;font-weight:700;}
+.hi{background:rgba(16,185,129,0.15);color:#10b981;}.md{background:rgba(245,158,11,0.15);color:#f59e0b;}.lo{background:rgba(239,68,68,0.15);color:#ef4444;}
+.cr{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+@media(max-width:720px){.cr{grid-template-columns:1fr;}}
+.cc{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:18px;}
+.ct{font-size:0.6rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.ch{position:relative;}
+.bar-svg{width:100%;overflow:visible;}
+.grid-line{stroke:rgba(255,255,255,0.04);stroke-width:1;}
+.axis-label{font-size:10px;fill:#475569;font-family:Segoe UI,sans-serif;}
+.bar-val{font-size:10px;fill:#94a3b8;font-family:Segoe UI,sans-serif;}
+.bar-label{font-size:11px;fill:#64748b;font-family:Segoe UI,sans-serif;}
+.line-path{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.donut-wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.donut-legend{display:flex;flex-direction:column;gap:7px;}
+.dl-item{display:flex;align-items:center;gap:7px;font-size:0.72rem;color:var(--muted);}
+.dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.dl-val{margin-left:auto;font-weight:600;color:var(--text);padding-left:12px;}
+.trc{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:18px;margin-bottom:18px;}
+.trc-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.trend-btns{display:flex;gap:5px;flex-wrap:wrap;}
+.tb{font-size:0.62rem;padding:4px 10px;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all 0.15s;font-family:inherit;}
+.tb:hover{border-color:var(--border2);color:var(--text);}.tb.on{background:var(--s3);border-color:var(--border2);color:var(--text);}
+.leg{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;}
+.li{display:flex;align-items:center;gap:5px;font-size:0.69rem;color:var(--muted);}
+.ld{width:20px;height:3px;border-radius:2px;}
+.corey-card{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:22px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-bottom:18px;}
+.corey-info h3{font-size:1rem;font-weight:700;margin-bottom:5px;}
+.corey-info p{font-size:0.8rem;color:var(--muted);line-height:1.75;}
+.corey-info strong{color:var(--orange);font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo"><h1>Technician Scorecard</h1><p>Weekly Performance Dashboard · February 2026</p></div>
+  <div class="tabs" id="tabs"></div>
+</header>
+<div class="sh"><div class="pip" style="background:var(--svc)"></div><h2>Service Team</h2><div class="rl"></div></div>
+<div class="kpis" id="sKpis"></div>
+<div class="tw"><table><thead id="sTh"></thead><tbody id="sTb"></tbody></table></div>
+<div class="cr">
+  <div class="cc"><div class="ct">First Call Effectiveness</div><div class="ch" id="cFceSvc"></div></div>
+  <div class="cc"><div class="ct">Parts Cost per Call ($)</div><div class="ch" id="cParts"></div></div>
+</div>
+<div class="trc">
+  <div class="trc-head"><div class="ct" style="margin:0">Service Team — Weekly Trend</div><div class="trend-btns" id="sTrBtns"></div></div>
+  <div class="ch" id="cSTrend"></div><div class="leg" id="sLeg"></div>
+</div>
+<div class="sh"><div class="pip" style="background:var(--tss)"></div><h2>TSS Team</h2><div class="rl"></div></div>
+<div class="kpis" id="tKpis"></div>
+<div class="tw"><table><thead id="tTh"></thead><tbody id="tTb"></tbody></table></div>
+<div class="cr">
+  <div class="cc"><div class="ct">First Call Effectiveness</div><div class="ch" id="cFceTss"></div></div>
+  <div class="cc"><div class="ct">Time Allocation — Team</div><div class="ch" id="cDonut"></div></div>
+</div>
+<div class="trc">
+  <div class="trc-head"><div class="ct" style="margin:0">TSS Team — Weekly Trend</div><div class="trend-btns" id="tTrBtns"></div></div>
+  <div class="ch" id="cTTrend"></div><div class="leg" id="tLeg"></div>
+</div>
+<div class="sh"><div class="pip" style="background:var(--corey)"></div><h2>Corey Meyer — Coverage</h2><div class="rl"></div></div>
+<div class="corey-card">
+  <div id="cCoreyDonut"></div>
+  <div class="corey-info">
+    <h3>Corey Meyer</h3>
+    <p><strong id="cCalls">—</strong> Contract Visit + Supply Delivery calls this week<br>out of <strong id="cTotal">—</strong> total CV + SD calls across all technicians</p>
+  </div>
+</div>
+</div>
+<script>
+const WEEKS=[
+  {week:"2/9 \u2013 2/15",service:{"Chad Mahand":{cm:15,pct_cm:0.473,fce:0.867,resp:2.37,ppc:99.89,pppc:266.38,tcc:105.41},"Jimmy Puck":{cm:11,pct_cm:0.331,fce:0.636,resp:1.53,ppc:38.37,pppc:230.23,tcc:56.45},"Jim Stacy":{cm:15,pct_cm:0.532,fce:0.867,resp:3.01,ppc:56.20,pppc:136.50,tcc:73.58},"Scott Reinert":{cm:14,pct_cm:0.346,fce:0.857,resp:1.60,ppc:50.45,pppc:189.18,tcc:56.79},"Vynce Stewart":{cm:23,pct_cm:0.417,fce:0.783,resp:1.20,ppc:59.96,pppc:229.84,tcc:64.95}},sTeam:{cm:78,pct_cm:0.417,fce:0.808,resp:1.89,ppc:62.05,pppc:206.00,tcc:71.81},tss:{"Alex Livingston":{cm:7,fce:1.000,resp:0.23,pct_cm:0.198,pct_ua:0.258,remote:0},"Tanner Cowan":{cm:25,fce:0.920,resp:0.29,pct_cm:0.262,pct_ua:0.056,remote:0},"Rhyan O'Shane":{cm:7,fce:1.000,resp:0.54,pct_cm:0.136,pct_ua:0.007,remote:0}},tTeam:{cm:39,fce:0.949,resp:0.33,pct_cm:0.204,pct_ua:0.100,pct_dca:0.034,remote:0},corey:{calls:48,total:182}},
+  {week:"2/16 \u2013 2/22",service:{"Chad Mahand":{cm:21,pct_cm:0.732,fce:0.762,resp:1.96,ppc:47.97,pppc:150.75,tcc:56.18},"Jimmy Puck":{cm:9,pct_cm:0.298,fce:0.889,resp:1.88,ppc:163.51,pppc:299.77,tcc:177.77},"Jim Stacy":{cm:9,pct_cm:0.414,fce:0.778,resp:2.27,ppc:90.53,pppc:203.68,tcc:111.45},"Scott Reinert":{cm:17,pct_cm:0.443,fce:0.941,resp:1.43,ppc:36.77,pppc:125.00,tcc:48.54},"Vynce Stewart":{cm:14,pct_cm:0.454,fce:0.786,resp:1.09,ppc:25.99,pppc:72.76,tcc:35.89}},sTeam:{cm:70,pct_cm:0.469,fce:0.829,resp:1.69,ppc:63.80,pppc:172.50,tcc:75.64},tss:{"Alex Livingston":{cm:19,fce:0.895,resp:1.53,pct_cm:0.336,pct_ua:0.158,remote:0.895},"Tanner Cowan":{cm:7,fce:1.000,resp:1.80,pct_cm:0.233,pct_ua:0.098,remote:0.714},"Rhyan O'Shane":{cm:10,fce:0.800,resp:0.36,pct_cm:0.095,pct_ua:0.109,remote:0.800}},tTeam:{cm:36,fce:0.889,resp:1.26,pct_cm:0.210,pct_ua:0.121,pct_dca:0.124,remote:0.833},corey:{calls:70,total:141}},
+  {week:"2/23 \u2013 2/27",service:{"Chad Mahand":{cm:23,pct_cm:0.825,fce:0.826,resp:1.80,ppc:44.07,pppc:168.93,tcc:50.89},"Jimmy Puck":{cm:15,pct_cm:0.383,fce:0.733,resp:1.48,ppc:35.55,pppc:127.97,tcc:49.62},"Jim Stacy":{cm:10,pct_cm:0.469,fce:0.700,resp:1.55,ppc:51.01,pppc:122.43,tcc:64.02},"Scott Reinert":{cm:10,pct_cm:0.403,fce:1.000,resp:1.86,ppc:5.63,pppc:20.66,tcc:36.75},"Vynce Stewart":{cm:18,pct_cm:0.312,fce:0.778,resp:1.23,ppc:29.53,pppc:132.90,tcc:36.03}},sTeam:{cm:76,pct_cm:0.445,fce:0.803,resp:1.58,ppc:34.87,pppc:124.31,tcc:47.37},tss:{"Alex Livingston":{cm:18,fce:0.889,resp:0.82,pct_cm:0.272,pct_ua:0.098,remote:0.833},"Tanner Cowan":{cm:28,fce:1.000,resp:0.69,pct_cm:0.533,pct_ua:0.168,remote:0.737},"Rhyan O'Shane":{cm:15,fce:0.867,resp:0.90,pct_cm:0.190,pct_ua:0.108,remote:0.778}},tTeam:{cm:61,fce:0.934,resp:0.78,pct_cm:0.333,pct_ua:0.125,pct_dca:0.109,remote:0.775},corey:{calls:94,total:173}}
+];
+const SVC=['Chad Mahand','Jimmy Puck','Jim Stacy','Scott Reinert','Vynce Stewart'];
+const TSS=['Alex Livingston','Tanner Cowan',"Rhyan O'Shane"];
+const SCOLS=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ec4899'];
+const TCOLS=['#06b6d4','#f97316','#a78bfa'];
+const WL=WEEKS.map(w=>w.week);
+let cw=WEEKS.length-1,sTrM='fce',tTrM='fce';
+const pct=v=>(v*100).toFixed(1)+'%';
+const $=id=>document.getElementById(id);
+const $f=v=>'$'+v.toFixed(2);
+const fc=v=>v>=0.9?'hi':v>=0.75?'md':'lo';
+const fn=s=>s.split(' ')[0];
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+
+function barChart(cid,labels,values,colors,opts){
+  const W=440,H=185,ml=40,mr=10,mt=12,mb=32,cw=W-ml-mr,ch=H-mt-mb,n=values.length;
+  const bw=Math.min(46,(cw/n)*0.62),gap=cw/n;
+  const max=Math.max(...values)*1.18||1;
+  const isPct=opts&&opts.pct,isDol=opts&&opts.dol;
+  let g='',gl='',bars='';
+  for(let i=0;i<=4;i++){
+    const v=max*i/4,y=mt+ch-(ch*i/4);
+    g+=`<line class="grid-line" x1="${ml}" y1="${y}" x2="${ml+cw}" y2="${y}"/>`;
+    const lv=isPct?v.toFixed(0)+'%':isDol?'$'+v.toFixed(0):v.toFixed(1);
+    gl+=`<text class="axis-label" x="${ml-4}" y="${y+4}" text-anchor="end">${lv}</text>`;
+  }
+  labels.forEach((lb,i)=>{
+    const x=ml+gap*i+(gap-bw)/2,bh=Math.max(2,(values[i]/max)*ch),y=mt+ch-bh;
+    const vl=isPct?values[i].toFixed(1)+'%':isDol?'$'+values[i].toFixed(0):values[i];
+    const sh=lb.length>7?lb.slice(0,6)+'…':lb;
+    bars+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="${colors[i]}" opacity="0.85"/>`;
+    bars+=`<text class="bar-val" x="${x+bw/2}" y="${y-4}" text-anchor="middle">${vl}</text>`;
+    bars+=`<text class="bar-label" x="${x+bw/2}" y="${mt+ch+20}" text-anchor="middle">${esc(sh)}</text>`;
+  });
+  $(cid).innerHTML=`<svg class="bar-svg" viewBox="0 0 ${W} ${H}">${g}${gl}${bars}</svg>`;
+}
+
+function lineChart(cid,labels,series,opts){
+  const W=560,H=210,ml=44,mr=14,mt=14,mb=36,cw=W-ml-mr,ch=H-mt-mb,n=labels.length;
+  if(n<2)return;
+  const isPct=opts&&opts.pct,isDol=opts&&opts.dol;
+  const all=series.flatMap(s=>s.data);
+  const vmin=Math.min(...all),vmax=Math.max(...all),pad=(vmax-vmin)*0.15||1;
+  const lo=Math.max(0,vmin-pad),hi=vmax+pad;
+  const xP=i=>ml+(cw/(n-1))*i;
+  const yP=v=>mt+ch-(ch*(v-lo)/(hi-lo));
+  let g='',ay='',ax='',paths='',dots='';
+  for(let i=0;i<=4;i++){
+    const v=lo+(hi-lo)*i/4,y=mt+ch-(ch*i/4);
+    g+=`<line class="grid-line" x1="${ml}" y1="${y}" x2="${ml+cw}" y2="${y}"/>`;
+    const lv=isPct?v.toFixed(0)+'%':isDol?'$'+v.toFixed(0):v.toFixed(1);
+    ay+=`<text class="axis-label" x="${ml-5}" y="${y+4}" text-anchor="end">${lv}</text>`;
+  }
+  labels.forEach((l,i)=>ax+=`<text class="axis-label" x="${xP(i)}" y="${mt+ch+22}" text-anchor="middle">${esc(l)}</text>`);
+  series.forEach(s=>{
+    const pts=s.data.map((v,i)=>`${xP(i)},${yP(v)}`).join(' ');
+    paths+=`<polyline class="line-path" points="${pts}" stroke="${s.color}" opacity="0.9"/>`;
+    s.data.forEach((v,i)=>{
+      const vl=isPct?v.toFixed(1)+'%':isDol?'$'+v.toFixed(1):v.toFixed(2);
+      dots+=`<circle cx="${xP(i)}" cy="${yP(v)}" r="4.5" fill="${s.color}" stroke="#080b10" stroke-width="2"><title>${esc(s.name)}: ${vl}</title></circle>`;
+    });
+  });
+  $(cid).innerHTML=`<svg class="bar-svg" viewBox="0 0 ${W} ${H}">${g}${ay}${ax}${paths}${dots}</svg>`;
+}
+
+function doughnut(cid,slices){
+  const R=54,r=36,cx=70,cy=70;
+  const tot=slices.reduce((a,s)=>a+s.v,0)||1;
+  let ang=-Math.PI/2,paths='';
+  slices.forEach(s=>{
+    const sw=(s.v/tot)*Math.PI*2;
+    if(sw<0.001){ang+=sw;return;}
+    const x1=cx+R*Math.cos(ang),y1=cy+R*Math.sin(ang);
+    const x2=cx+R*Math.cos(ang+sw),y2=cy+R*Math.sin(ang+sw);
+    const ix1=cx+r*Math.cos(ang),iy1=cy+r*Math.sin(ang);
+    const ix2=cx+r*Math.cos(ang+sw),iy2=cy+r*Math.sin(ang+sw);
+    const lg=sw>Math.PI?1:0;
+    paths+=`<path d="M${x1},${y1} A${R},${R} 0 ${lg},1 ${x2},${y2} L${ix2},${iy2} A${r},${r} 0 ${lg},0 ${ix1},${iy1} Z" fill="${s.color}" opacity="0.9"><title>${esc(s.label)}: ${s.v.toFixed(1)}%</title></path>`;
+    ang+=sw;
+  });
+  const leg=slices.map(s=>`<div class="dl-item"><div class="dl-dot" style="background:${s.color}"></div><span>${esc(s.label)}</span><span class="dl-val">${s.v.toFixed(1)}%</span></div>`).join('');
+  $(cid).innerHTML=`<div class="donut-wrap"><svg viewBox="0 0 140 140" width="130" height="130">${paths}<text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="11" fill="#64748b" font-family="Segoe UI,sans-serif">Time</text></svg><div class="donut-legend">${leg}</div></div>`;
+}
+
+function coreyRing(cid,pv){
+  const R=50,r=36,cx=65,cy=65,sw=pv*Math.PI*2;
+  const x1=cx+R*Math.cos(-Math.PI/2),y1=cy+R*Math.sin(-Math.PI/2);
+  const x2=cx+R*Math.cos(-Math.PI/2+sw),y2=cy+R*Math.sin(-Math.PI/2+sw);
+  const ix1=cx+r*Math.cos(-Math.PI/2),iy1=cy+r*Math.sin(-Math.PI/2);
+  const ix2=cx+r*Math.cos(-Math.PI/2+sw),iy2=cy+r*Math.sin(-Math.PI/2+sw);
+  const lg=sw>Math.PI?1:0;
+  const bg=`<path d="M${cx},${cy-R} A${R},${R} 0 1,1 ${cx-0.001},${cy-R} L${cx-0.001},${cy-r} A${r},${r} 0 1,0 ${cx},${cy-r} Z" fill="#1a2230"/>`;
+  const arc=pv>0.001?`<path d="M${x1},${y1} A${R},${R} 0 ${lg},1 ${x2},${y2} L${ix2},${iy2} A${r},${r} 0 ${lg},0 ${ix1},${iy1} Z" fill="#f97316" opacity="0.9"/>`:'';
+  $(cid).innerHTML=`<svg viewBox="0 0 130 130" width="120" height="120">${bg}${arc}<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="15" font-weight="700" fill="#f97316" font-family="Segoe UI,sans-serif">${(pv*100).toFixed(1)}%</text><text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="9" fill="#64748b" font-family="Segoe UI,sans-serif">OF TEAM</text></svg>`;
+}
+
+function render(){
+  const d=WEEKS[cw];
+  $('tabs').innerHTML=WEEKS.map((w,i)=>`<button class="tab${i===cw?' on':''}" onclick="cw=${i};render()">${esc(w.week)}</button>`).join('');
+  $('sKpis').innerHTML=[['CM Calls',d.sTeam.cm,'','sv'],['Team FCE',pct(d.sTeam.fce),'','sv'],['% Time on CM',pct(d.sTeam.pct_cm),'of total hours','sv'],['Avg Response',d.sTeam.resp.toFixed(2)+' hrs','','sv'],['Parts / Call',$f(d.sTeam.ppc),'CM + parts calls','sv'],['Parts / Parts Call',$f(d.sTeam.pppc),'calls with parts','sv'],['Total Cost / Call',$f(d.sTeam.tcc),'parts + mileage','sv']].map(([l,v,s,c])=>`<div class="kpi ${c}"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div>${s?`<div class="kpi-s">${s}</div>`:''}</div>`).join('');
+  $('sTh').innerHTML=`<tr>${['Technician','CM Calls','% Time CM','FCE','Avg Resp (hrs)','Parts/Call','Parts/Parts Call','Total Cost/Call'].map((h,i)=>`<th${i?'':' style="text-align:left"'}>${h}</th>`).join('')}</tr>`;
+  $('sTb').innerHTML=SVC.map(t=>{const m=d.service[t];return`<tr><td>${esc(t)}</td><td>${m.cm}</td><td>${pct(m.pct_cm)}</td><td><span class="bdg ${fc(m.fce)}">${pct(m.fce)}</span></td><td>${m.resp.toFixed(2)}</td><td>${$f(m.ppc)}</td><td>${$f(m.pppc)}</td><td>${$f(m.tcc)}</td></tr>`}).join('')+`<tr class="tr"><td>TEAM TOTAL</td><td>${d.sTeam.cm}</td><td>${pct(d.sTeam.pct_cm)}</td><td><span class="bdg ${fc(d.sTeam.fce)}">${pct(d.sTeam.fce)}</span></td><td>${d.sTeam.resp.toFixed(2)}</td><td>${$f(d.sTeam.ppc)}</td><td>${$f(d.sTeam.pppc)}</td><td>${$f(d.sTeam.tcc)}</td></tr>`;
+  $('tKpis').innerHTML=[['CM Calls',d.tTeam.cm,'','ts'],['Team FCE',pct(d.tTeam.fce),'','ts'],['Avg Response',d.tTeam.resp.toFixed(2)+' hrs','','ts'],['% Time on CM',pct(d.tTeam.pct_cm),'of total hours','ts'],['% Time on UA',pct(d.tTeam.pct_ua),'user assistance','ts'],['Remote Resolution',d.tTeam.remote>0?pct(d.tTeam.remote):'—','network trouble','ts']].map(([l,v,s,c])=>`<div class="kpi ${c}"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div>${s?`<div class="kpi-s">${s}</div>`:''}</div>`).join('');
+  $('tTh').innerHTML=`<tr>${['Technician','CM Calls','FCE','Avg Resp (hrs)','% Time CM','% Time UA','Remote Res.'].map((h,i)=>`<th${i?'':' style="text-align:left"'}>${h}</th>`).join('')}</tr>`;
+  $('tTb').innerHTML=TSS.map(t=>{const m=d.tss[t];return`<tr><td>${esc(t)}</td><td>${m.cm}</td><td><span class="bdg ${fc(m.fce)}">${pct(m.fce)}</span></td><td>${m.resp.toFixed(2)}</td><td>${pct(m.pct_cm)}</td><td>${pct(m.pct_ua)}</td><td>${m.remote>0?pct(m.remote):'—'}</td></tr>`}).join('')+`<tr class="tr"><td>TEAM TOTAL</td><td>${d.tTeam.cm}</td><td><span class="bdg ${fc(d.tTeam.fce)}">${pct(d.tTeam.fce)}</span></td><td>${d.tTeam.resp.toFixed(2)}</td><td>${pct(d.tTeam.pct_cm)}</td><td>${pct(d.tTeam.pct_ua)}</td><td>${d.tTeam.remote>0?pct(d.tTeam.remote):'—'}</td></tr>`;
+  coreyRing('cCoreyDonut',d.corey.calls/d.corey.total);
+  $('cCalls').textContent=d.corey.calls;
+  $('cTotal').textContent=d.corey.total;
+  barChart('cFceSvc',SVC.map(fn),SVC.map(t=>+(d.service[t].fce*100).toFixed(1)),SCOLS,{pct:true});
+  barChart('cParts',SVC.map(fn),SVC.map(t=>+d.service[t].ppc.toFixed(2)),SCOLS,{dol:true});
+  barChart('cFceTss',TSS.map(fn),TSS.map(t=>+(d.tss[t].fce*100).toFixed(1)),TCOLS,{pct:true});
+  const tt=d.tTeam,oth=Math.max(0,1-tt.pct_cm-tt.pct_ua-tt.pct_dca);
+  doughnut('cDonut',[{label:'CM',v:+(tt.pct_cm*100).toFixed(1),color:'#10b981'},{label:'User Assist',v:+(tt.pct_ua*100).toFixed(1),color:'#3b82f6'},{label:'DCA',v:+(tt.pct_dca*100).toFixed(1),color:'#8b5cf6'},{label:'Other',v:+(oth*100).toFixed(1),color:'#1e293b'}]);
+  renderTrends();
+}
+
+const S_OPT=[{k:'fce',l:'FCE'},{k:'pct_cm',l:'% Time CM'},{k:'ppc',l:'Parts/Call'},{k:'tcc',l:'Total Cost'},{k:'resp',l:'Avg Resp'}];
+const T_OPT=[{k:'fce',l:'FCE'},{k:'pct_cm',l:'% Time CM'},{k:'pct_ua',l:'% Time UA'},{k:'remote',l:'Remote Res.'},{k:'resp',l:'Avg Resp'}];
+
+function renderTrends(){
+  $('sTrBtns').innerHTML=S_OPT.map(o=>`<button class="tb${o.k===sTrM?' on':''}" onclick="sTrM='${o.k}';renderTrends()">${o.l}</button>`).join('');
+  $('tTrBtns').innerHTML=T_OPT.map(o=>`<button class="tb${o.k===tTrM?' on':''}" onclick="tTrM='${o.k}';renderTrends()">${o.l}</button>`).join('');
+  const ipS=['fce','pct_cm'].includes(sTrM),idS=['ppc','pppc','tcc'].includes(sTrM);
+  const ipT=['fce','pct_cm','pct_ua','remote'].includes(tTrM);
+  lineChart('cSTrend',WL,SVC.map((t,i)=>({name:fn(t),color:SCOLS[i],data:WEEKS.map(w=>ipS?+(w.service[t][sTrM]*100).toFixed(1):+w.service[t][sTrM].toFixed(2))})),{pct:ipS,dol:idS});
+  $('sLeg').innerHTML=SVC.map((t,i)=>`<div class="li"><div class="ld" style="background:${SCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
+  lineChart('cTTrend',WL,TSS.map((t,i)=>({name:fn(t),color:TCOLS[i],data:WEEKS.map(w=>ipT?+(w.tss[t][tTrM]*100).toFixed(1):+w.tss[t][tTrM].toFixed(2))})),{pct:ipT});
+  $('tLeg').innerHTML=TSS.map((t,i)=>`<div class="li"><div class="ld" style="background:${TCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
+}
+render();
+</script>
+</body>
+</html>
