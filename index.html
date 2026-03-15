@@ -11,7 +11,8 @@
   --text:#e2e8f0;--muted:#64748b;
   --blue:#3b82f6;--cyan:#06b6d4;--green:#10b981;
   --amber:#f59e0b;--red:#ef4444;--orange:#f97316;--violet:#8b5cf6;
-  --svc:#3b82f6;--tss:#10b981;--corey:#f97316;
+  --gold:#b45309;--gold-light:#fef3c7;--gold-border:#d97706;
+  --svc:#3b82f6;--tss:#10b981;--corey:#f97316;--prod:#d97706;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:Segoe UI,system-ui,sans-serif;min-height:100vh;overflow-x:hidden;}
@@ -24,18 +25,24 @@ header{display:flex;align-items:flex-end;justify-content:space-between;padding-b
 .tab{font-size:0.72rem;padding:7px 15px;border-radius:7px;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--muted);transition:all 0.18s;font-family:inherit;white-space:nowrap;}
 .tab:hover{border-color:var(--border2);color:var(--text);}
 .tab.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 18px rgba(59,130,246,0.35);}
+
+/* SECTION HEADERS */
 .sh{display:flex;align-items:center;gap:10px;margin:30px 0 16px;}
 .sh .pip{width:4px;height:20px;border-radius:2px;flex-shrink:0;}
 .sh h2{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
 .sh .rl{flex:1;height:1px;background:var(--border);}
+
+/* KPI CARDS */
 .kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-bottom:18px;}
 .kpi{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px 15px;position:relative;overflow:hidden;transition:transform 0.18s,border-color 0.18s;}
 .kpi:hover{transform:translateY(-2px);border-color:var(--border2);}
 .kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:10px 10px 0 0;}
-.kpi.sv::after{background:var(--svc);}.kpi.ts::after{background:var(--tss);}.kpi.co::after{background:var(--corey);}
+.kpi.sv::after{background:var(--svc);}.kpi.ts::after{background:var(--tss);}.kpi.co::after{background:var(--corey);}.kpi.pr::after{background:var(--prod);}
 .kpi-l{font-size:0.59rem;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;line-height:1.35;}
 .kpi-v{font-size:1.5rem;font-weight:700;line-height:1;color:var(--text);font-variant-numeric:tabular-nums;}
 .kpi-s{font-size:0.59rem;color:var(--muted);margin-top:3px;}
+
+/* TABLES */
 .tw{background:var(--s1);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:18px;overflow-x:auto;}
 table{width:100%;border-collapse:collapse;font-size:0.79rem;min-width:600px;}
 thead th{background:var(--s2);padding:10px 13px;font-size:0.59rem;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);text-align:right;white-space:nowrap;}
@@ -46,24 +53,43 @@ tbody tr:hover{background:var(--s2);}
 tbody td{padding:10px 13px;text-align:right;font-size:0.76rem;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap;}
 tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 .tr td{background:var(--s3);border-top:1px solid var(--border2);color:var(--cyan);font-weight:700;}
+
+/* Production table styling */
+.tw-prod{background:rgba(180,83,9,0.06);border:1px solid rgba(217,119,6,0.25);border-radius:11px;overflow:hidden;margin-bottom:18px;overflow-x:auto;}
+.tw-prod thead th{background:rgba(180,83,9,0.18);color:#d97706;border-bottom:1px solid rgba(217,119,6,0.25);}
+.tw-prod tbody tr{border-bottom:1px solid rgba(217,119,6,0.12);}
+.tw-prod tbody tr:hover{background:rgba(180,83,9,0.08);}
+.tw-prod tbody td{color:var(--text);}
+.tw-prod .tr td{background:rgba(180,83,9,0.15);color:#fbbf24;border-top:1px solid rgba(217,119,6,0.3);}
+
 .bdg{display:inline-block;padding:2px 8px;border-radius:20px;font-size:0.68rem;font-weight:700;}
 .hi{background:rgba(16,185,129,0.15);color:#10b981;}.md{background:rgba(245,158,11,0.15);color:#f59e0b;}.lo{background:rgba(239,68,68,0.15);color:#ef4444;}
+
+/* CHART CONTAINERS */
 .cr{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
 @media(max-width:720px){.cr{grid-template-columns:1fr;}}
 .cc{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:18px;}
+.cc-prod{background:rgba(180,83,9,0.06);border:1px solid rgba(217,119,6,0.25);border-radius:11px;padding:18px;}
 .ct{font-size:0.6rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.ct-prod{font-size:0.6rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#d97706;margin-bottom:14px;}
 .ch{position:relative;}
+
+/* SVG CHARTS */
 .bar-svg{width:100%;overflow:visible;}
 .grid-line{stroke:rgba(255,255,255,0.04);stroke-width:1;}
 .axis-label{font-size:10px;fill:#475569;font-family:Segoe UI,sans-serif;}
 .bar-val{font-size:10px;fill:#94a3b8;font-family:Segoe UI,sans-serif;}
 .bar-label{font-size:11px;fill:#64748b;font-family:Segoe UI,sans-serif;}
 .line-path{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+
+/* DOUGHNUT */
 .donut-wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
 .donut-legend{display:flex;flex-direction:column;gap:7px;}
 .dl-item{display:flex;align-items:center;gap:7px;font-size:0.72rem;color:var(--muted);}
 .dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .dl-val{margin-left:auto;font-weight:600;color:var(--text);padding-left:12px;}
+
+/* TREND CARD */
 .trc{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:18px;margin-bottom:18px;}
 .trc-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
 .trend-btns{display:flex;gap:5px;flex-wrap:wrap;}
@@ -72,6 +98,8 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 .leg{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;}
 .li{display:flex;align-items:center;gap:5px;font-size:0.69rem;color:var(--muted);}
 .ld{width:20px;height:3px;border-radius:2px;}
+
+/* COREY */
 .corey-card{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:22px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-bottom:18px;}
 .corey-info h3{font-size:1rem;font-weight:700;margin-bottom:5px;}
 .corey-info p{font-size:0.8rem;color:var(--muted);line-height:1.75;}
@@ -80,10 +108,13 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 </head>
 <body>
 <div class="wrap">
+
 <header>
-  <div class="logo"><h1>Technician Scorecard</h1><p>Weekly Performance Dashboard · Feb &amp; Mar 2026</p></div>
+  <div class="logo"><h1>Technician Scorecard</h1><p>Weekly Performance Dashboard · 2026</p></div>
   <div class="tabs" id="tabs"></div>
 </header>
+
+<!-- SERVICE -->
 <div class="sh"><div class="pip" style="background:var(--svc)"></div><h2>Service Team</h2><div class="rl"></div></div>
 <div class="kpis" id="sKpis"></div>
 <div class="tw"><table><thead id="sTh"></thead><tbody id="sTb"></tbody></table></div>
@@ -95,6 +126,21 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
   <div class="trc-head"><div class="ct" style="margin:0">Service Team — Weekly Trend</div><div class="trend-btns" id="sTrBtns"></div></div>
   <div class="ch" id="cSTrend"></div><div class="leg" id="sLeg"></div>
 </div>
+
+<!-- PRODUCTION -->
+<div class="sh"><div class="pip" style="background:var(--prod)"></div><h2>Production Machine Metrics</h2><div class="rl"></div></div>
+<div class="kpis" id="pKpis"></div>
+<div class="tw-prod"><table><thead id="pTh"></thead><tbody id="pTb"></tbody></table></div>
+<div class="cr">
+  <div class="cc-prod"><div class="ct-prod">Prod. Parts Cost per Call ($)</div><div class="ch" id="cProdPpc"></div></div>
+  <div class="cc-prod"><div class="ct-prod">Prod. Total Cost per Call ($)</div><div class="ch" id="cProdTcc"></div></div>
+</div>
+<div class="trc" style="background:rgba(180,83,9,0.06);border-color:rgba(217,119,6,0.25)">
+  <div class="trc-head"><div class="ct-prod" style="margin:0">Production — Weekly Trend</div><div class="trend-btns" id="pTrBtns"></div></div>
+  <div class="ch" id="cPTrend"></div><div class="leg" id="pLeg"></div>
+</div>
+
+<!-- TSS -->
 <div class="sh"><div class="pip" style="background:var(--tss)"></div><h2>TSS Team</h2><div class="rl"></div></div>
 <div class="kpis" id="tKpis"></div>
 <div class="tw"><table><thead id="tTh"></thead><tbody id="tTb"></tbody></table></div>
@@ -106,6 +152,8 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
   <div class="trc-head"><div class="ct" style="margin:0">TSS Team — Weekly Trend</div><div class="trend-btns" id="tTrBtns"></div></div>
   <div class="ch" id="cTTrend"></div><div class="leg" id="tLeg"></div>
 </div>
+
+<!-- COREY -->
 <div class="sh"><div class="pip" style="background:var(--corey)"></div><h2>Corey Meyer — Coverage</h2><div class="rl"></div></div>
 <div class="corey-card">
   <div id="cCoreyDonut"></div>
@@ -114,20 +162,66 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
     <p><strong id="cCalls">—</strong> Contract Visit + Supply Delivery calls this week<br>out of <strong id="cTotal">—</strong> total CV + SD calls across all technicians</p>
   </div>
 </div>
+
 </div>
 <script>
+// ═══════════════════════════════════════════
+// DATA — prod = {ppc, pppc, tcc} per tech per week ($0 if no production calls)
+// ═══════════════════════════════════════════
 const WEEKS=[
-  {week:"2/9 \u2013 2/15",service:{"Chad Mahand":{cm:15,pct_cm:0.473,fce:0.867,resp:2.37,ppc:99.89,pppc:266.38,tcc:105.41},"Jimmy Puck":{cm:11,pct_cm:0.331,fce:0.636,resp:1.53,ppc:38.37,pppc:230.23,tcc:56.45},"Jim Stacy":{cm:15,pct_cm:0.532,fce:0.867,resp:3.01,ppc:56.20,pppc:136.50,tcc:73.58},"Scott Reinert":{cm:14,pct_cm:0.346,fce:0.857,resp:1.60,ppc:50.45,pppc:189.18,tcc:56.79},"Vynce Stewart":{cm:23,pct_cm:0.417,fce:0.783,resp:1.20,ppc:59.96,pppc:229.84,tcc:64.95}},sTeam:{cm:78,pct_cm:0.417,fce:0.808,resp:1.89,ppc:62.05,pppc:206.00,tcc:71.81},tss:{"Alex Livingston":{cm:7,fce:1.000,resp:0.23,pct_cm:0.198,pct_ua:0.258,remote:0},"Tanner Cowan":{cm:25,fce:0.920,resp:0.29,pct_cm:0.262,pct_ua:0.056,remote:0},"Rhyan O'Shane":{cm:7,fce:1.000,resp:0.54,pct_cm:0.136,pct_ua:0.007,remote:0}},tTeam:{cm:39,fce:0.949,resp:0.33,pct_cm:0.204,pct_ua:0.100,pct_dca:0.034,remote:0},corey:{calls:48,total:182}},
-  {week:"2/16 \u2013 2/22",service:{"Chad Mahand":{cm:21,pct_cm:0.732,fce:0.762,resp:1.96,ppc:47.97,pppc:150.75,tcc:56.18},"Jimmy Puck":{cm:9,pct_cm:0.298,fce:0.889,resp:1.88,ppc:163.51,pppc:299.77,tcc:177.77},"Jim Stacy":{cm:9,pct_cm:0.414,fce:0.778,resp:2.27,ppc:90.53,pppc:203.68,tcc:111.45},"Scott Reinert":{cm:17,pct_cm:0.443,fce:0.941,resp:1.43,ppc:36.77,pppc:125.00,tcc:48.54},"Vynce Stewart":{cm:14,pct_cm:0.454,fce:0.786,resp:1.09,ppc:25.99,pppc:72.76,tcc:35.89}},sTeam:{cm:70,pct_cm:0.469,fce:0.829,resp:1.69,ppc:63.80,pppc:172.50,tcc:75.64},tss:{"Alex Livingston":{cm:19,fce:0.895,resp:1.53,pct_cm:0.336,pct_ua:0.158,remote:0.895},"Tanner Cowan":{cm:7,fce:1.000,resp:1.80,pct_cm:0.233,pct_ua:0.098,remote:0.714},"Rhyan O'Shane":{cm:10,fce:0.800,resp:0.36,pct_cm:0.095,pct_ua:0.109,remote:0.800}},tTeam:{cm:36,fce:0.889,resp:1.26,pct_cm:0.210,pct_ua:0.121,pct_dca:0.124,remote:0.833},corey:{calls:70,total:141}},
-  {week:"2/23 \u2013 2/27",service:{"Chad Mahand":{cm:23,pct_cm:0.825,fce:0.826,resp:1.80,ppc:44.07,pppc:168.93,tcc:50.89},"Jimmy Puck":{cm:15,pct_cm:0.383,fce:0.733,resp:1.48,ppc:35.55,pppc:127.97,tcc:49.62},"Jim Stacy":{cm:10,pct_cm:0.469,fce:0.700,resp:1.55,ppc:51.01,pppc:122.43,tcc:64.02},"Scott Reinert":{cm:10,pct_cm:0.403,fce:1.000,resp:1.86,ppc:5.63,pppc:20.66,tcc:36.75},"Vynce Stewart":{cm:18,pct_cm:0.312,fce:0.778,resp:1.23,ppc:29.53,pppc:132.90,tcc:36.03}},sTeam:{cm:76,pct_cm:0.445,fce:0.803,resp:1.58,ppc:34.87,pppc:124.31,tcc:47.37},tss:{"Alex Livingston":{cm:18,fce:0.889,resp:0.82,pct_cm:0.272,pct_ua:0.098,remote:0.833},"Tanner Cowan":{cm:28,fce:1.000,resp:0.69,pct_cm:0.533,pct_ua:0.168,remote:0.737},"Rhyan O'Shane":{cm:15,fce:0.867,resp:0.90,pct_cm:0.190,pct_ua:0.108,remote:0.778}},tTeam:{cm:61,fce:0.934,resp:0.78,pct_cm:0.333,pct_ua:0.125,pct_dca:0.109,remote:0.775},corey:{calls:94,total:173}},
-  {week:"3/2 \u2013 3/6",service:{"Chad Mahand":{cm:20,pct_cm:0.7203,fce:0.9000,resp:1.428,ppc:44.75,pppc:178.99,tcc:49.58},"Jimmy Puck":{cm:14,pct_cm:0.5511,fce:0.7143,resp:1.5436,ppc:311.80,pppc:1662.93,tcc:319.11},"Jim Stacy":{cm:10,pct_cm:0.3701,fce:0.7000,resp:1.995,ppc:97.16,pppc:152.67,tcc:105.68},"Scott Reinert":{cm:5,pct_cm:0.1529,fce:0.8000,resp:2.114,ppc:32.10,pppc:160.50,tcc:44.98},"Vynce Stewart":{cm:14,pct_cm:0.4129,fce:0.7857,resp:1.0629,ppc:7.44,pppc:52.05,tcc:16.64}},sTeam:{cm:63,pct_cm:0.4422,fce:0.7937,resp:1.517,ppc:109.35,pppc:400.95,tcc:116.93},tss:{"Alex Livingston":{cm:28,fce:0.9286,resp:1.3075,pct_cm:0.6207,pct_ua:0.1815,remote:0.9474},"Tanner Cowan":{cm:8,fce:1.0000,resp:0.4488,pct_cm:0.0773,pct_ua:0.0292,remote:0.7500},"Rhyan O'Shane":{cm:20,fce:1.0000,resp:1.028,pct_cm:0.2768,pct_ua:0.0877,remote:0.7500}},tTeam:{cm:56,fce:0.9643,resp:1.085,pct_cm:0.2664,pct_ua:0.0832,pct_dca:0.0097,remote:0.8571},corey:{calls:91,total:163}}
+  {week:"2/9 \u2013 2/15",
+   service:{"Chad Mahand":{cm:15,pct_cm:0.473,fce:0.867,resp:2.37,ppc:99.89,pppc:266.38,tcc:105.41},"Jimmy Puck":{cm:11,pct_cm:0.331,fce:0.636,resp:1.53,ppc:38.37,pppc:230.23,tcc:56.45},"Jim Stacy":{cm:15,pct_cm:0.532,fce:0.867,resp:3.01,ppc:56.20,pppc:136.50,tcc:73.58},"Scott Reinert":{cm:14,pct_cm:0.346,fce:0.857,resp:1.60,ppc:50.45,pppc:189.18,tcc:56.79},"Vynce Stewart":{cm:23,pct_cm:0.417,fce:0.783,resp:1.20,ppc:59.96,pppc:229.84,tcc:64.95}},
+   sTeam:{cm:78,pct_cm:0.417,fce:0.808,resp:1.89,ppc:62.05,pppc:206.00,tcc:71.81},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0,pppc:0,tcc:0},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{ppc:0,pppc:0,tcc:0},
+   tss:{"Alex Livingston":{cm:7,fce:1.000,resp:0.23,pct_cm:0.198,pct_ua:0.258,remote:0},"Tanner Cowan":{cm:25,fce:0.920,resp:0.29,pct_cm:0.262,pct_ua:0.056,remote:0},"Rhyan O'Shane":{cm:7,fce:1.000,resp:0.54,pct_cm:0.136,pct_ua:0.007,remote:0}},
+   tTeam:{cm:39,fce:0.949,resp:0.33,pct_cm:0.204,pct_ua:0.100,pct_dca:0.034,remote:0},
+   corey:{calls:48,total:182}},
+
+  {week:"2/16 \u2013 2/22",
+   service:{"Chad Mahand":{cm:21,pct_cm:0.732,fce:0.762,resp:1.96,ppc:47.97,pppc:150.75,tcc:56.18},"Jimmy Puck":{cm:9,pct_cm:0.298,fce:0.889,resp:1.88,ppc:163.51,pppc:299.77,tcc:177.77},"Jim Stacy":{cm:9,pct_cm:0.414,fce:0.778,resp:2.27,ppc:90.53,pppc:203.68,tcc:111.45},"Scott Reinert":{cm:17,pct_cm:0.443,fce:0.941,resp:1.43,ppc:36.77,pppc:125.00,tcc:48.54},"Vynce Stewart":{cm:14,pct_cm:0.454,fce:0.786,resp:1.09,ppc:25.99,pppc:72.76,tcc:35.89}},
+   sTeam:{cm:70,pct_cm:0.469,fce:0.829,resp:1.69,ppc:63.80,pppc:172.50,tcc:75.64},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0,pppc:0,tcc:0},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{ppc:0,pppc:0,tcc:0},
+   tss:{"Alex Livingston":{cm:19,fce:0.895,resp:1.53,pct_cm:0.336,pct_ua:0.158,remote:0.895},"Tanner Cowan":{cm:7,fce:1.000,resp:1.80,pct_cm:0.233,pct_ua:0.098,remote:0.714},"Rhyan O'Shane":{cm:10,fce:0.800,resp:0.36,pct_cm:0.095,pct_ua:0.109,remote:0.800}},
+   tTeam:{cm:36,fce:0.889,resp:1.26,pct_cm:0.210,pct_ua:0.121,pct_dca:0.124,remote:0.833},
+   corey:{calls:70,total:141}},
+
+  {week:"2/23 \u2013 2/27",
+   service:{"Chad Mahand":{cm:23,pct_cm:0.825,fce:0.826,resp:1.80,ppc:44.07,pppc:168.93,tcc:50.89},"Jimmy Puck":{cm:15,pct_cm:0.383,fce:0.733,resp:1.48,ppc:35.55,pppc:127.97,tcc:49.62},"Jim Stacy":{cm:10,pct_cm:0.469,fce:0.700,resp:1.55,ppc:51.01,pppc:122.43,tcc:64.02},"Scott Reinert":{cm:10,pct_cm:0.403,fce:1.000,resp:1.86,ppc:5.63,pppc:20.66,tcc:36.75},"Vynce Stewart":{cm:18,pct_cm:0.312,fce:0.778,resp:1.23,ppc:29.53,pppc:132.90,tcc:36.03}},
+   sTeam:{cm:76,pct_cm:0.445,fce:0.803,resp:1.58,ppc:34.87,pppc:124.31,tcc:47.37},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:1539.16,pppc:2308.74,tcc:1547.32},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{ppc:1539.16,pppc:2308.74,tcc:1547.32},
+   tss:{"Alex Livingston":{cm:18,fce:0.889,resp:0.82,pct_cm:0.272,pct_ua:0.098,remote:0.833},"Tanner Cowan":{cm:28,fce:1.000,resp:0.69,pct_cm:0.533,pct_ua:0.168,remote:0.737},"Rhyan O'Shane":{cm:15,fce:0.867,resp:0.90,pct_cm:0.190,pct_ua:0.108,remote:0.778}},
+   tTeam:{cm:61,fce:0.934,resp:0.78,pct_cm:0.333,pct_ua:0.125,pct_dca:0.109,remote:0.775},
+   corey:{calls:94,total:173}},
+
+  {week:"3/2 \u2013 3/6",
+   service:{"Chad Mahand":{cm:20,pct_cm:0.7203,fce:0.9000,resp:1.428,ppc:44.75,pppc:178.99,tcc:49.58},"Jimmy Puck":{cm:14,pct_cm:0.5511,fce:0.7143,resp:1.5436,ppc:23.21,pppc:371.32,tcc:28.98},"Jim Stacy":{cm:10,pct_cm:0.3701,fce:0.7000,resp:1.995,ppc:97.16,pppc:152.67,tcc:105.68},"Scott Reinert":{cm:5,pct_cm:0.1529,fce:0.8000,resp:2.114,ppc:32.10,pppc:160.50,tcc:44.98},"Vynce Stewart":{cm:14,pct_cm:0.4129,fce:0.7857,resp:1.0629,ppc:7.44,pppc:52.05,tcc:16.64}},
+   sTeam:{cm:63,pct_cm:0.4422,fce:0.7937,resp:1.517,ppc:39.39,pppc:162.48,tcc:46.60},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:1539.16,pppc:2308.74,tcc:1547.32},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{ppc:1539.16,pppc:2308.74,tcc:1547.32},
+   tss:{"Alex Livingston":{cm:28,fce:0.9286,resp:1.3075,pct_cm:0.6207,pct_ua:0.1815,remote:0.9474},"Tanner Cowan":{cm:8,fce:1.0000,resp:0.4488,pct_cm:0.0773,pct_ua:0.0292,remote:0.7500},"Rhyan O'Shane":{cm:20,fce:1.0000,resp:1.028,pct_cm:0.2768,pct_ua:0.0877,remote:0.7500}},
+   tTeam:{cm:56,fce:0.9643,resp:1.085,pct_cm:0.2664,pct_ua:0.0832,pct_dca:0.0097,remote:0.8571},
+   corey:{calls:91,total:163}},
+
+  {week:"3/9 \u2013 3/13",
+   service:{"Chad Mahand":{cm:14,pct_cm:0.5337,fce:0.8571,resp:2.615,ppc:31.11,pppc:145.20,tcc:41.11},"Jimmy Puck":{cm:16,pct_cm:0.7125,fce:0.7500,resp:1.5737,ppc:16.14,pppc:258.17,tcc:23.70},"Jim Stacy":{cm:12,pct_cm:0.5770,fce:0.9167,resp:1.780,ppc:36.31,pppc:94.42,tcc:46.44},"Scott Reinert":{cm:7,pct_cm:0.3168,fce:0.8571,resp:1.7457,ppc:158.79,pppc:555.77,tcc:175.59},"Vynce Stewart":{cm:14,pct_cm:0.5053,fce:0.7857,resp:1.245,ppc:37.93,pppc:176.98,tcc:48.77}},
+   sTeam:{cm:63,pct_cm:0.5257,fce:0.8254,resp:1.7905,ppc:43.88,pppc:200.60,tcc:54.23},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:18.20},"Jimmy Puck":{ppc:58.71,pppc:234.84,tcc:68.34},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{ppc:29.36,pppc:234.84,tcc:43.27},
+   tss:{"Alex Livingston":{cm:12,fce:0.9167,resp:0.2233,pct_cm:0.2156,pct_ua:0.0753,remote:0.8750},"Tanner Cowan":{cm:23,fce:0.9130,resp:0.3678,pct_cm:0.4645,pct_ua:0.2252,remote:0.7500},"Rhyan O'Shane":{cm:26,fce:0.9615,resp:0.3054,pct_cm:0.2053,pct_ua:0.1067,remote:1.0000}},
+   tTeam:{cm:61,fce:0.9344,resp:0.3128,pct_cm:0.3106,pct_ua:0.1462,pct_dca:0.0434,remote:0.8710},
+   corey:{calls:53,total:89}}
 ];
+
 const SVC=['Chad Mahand','Jimmy Puck','Jim Stacy','Scott Reinert','Vynce Stewart'];
 const TSS=['Alex Livingston','Tanner Cowan',"Rhyan O'Shane"];
 const SCOLS=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ec4899'];
 const TCOLS=['#06b6d4','#f97316','#a78bfa'];
+const PCOLS=['#d97706','#f59e0b','#fbbf24','#b45309','#fde68a'];
 const WL=WEEKS.map(w=>w.week);
-let cw=WEEKS.length-1,sTrM='fce',tTrM='fce';
+let cw=WEEKS.length-1, sTrM='fce', tTrM='fce', pTrM='ppc';
 const pct=v=>(v*100).toFixed(1)+'%';
 const $=id=>document.getElementById(id);
 const $f=v=>'$'+v.toFixed(2);
@@ -135,6 +229,7 @@ const fc=v=>v>=0.9?'hi':v>=0.75?'md':'lo';
 const fn=s=>s.split(' ')[0];
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 
+// ── SVG BAR CHART ─────────────────────────────────────────────────
 function barChart(cid,labels,values,colors,opts){
   const W=440,H=185,ml=40,mr=10,mt=12,mb=32,cw=W-ml-mr,ch=H-mt-mb,n=values.length;
   const bw=Math.min(46,(cw/n)*0.62),gap=cw/n;
@@ -158,6 +253,7 @@ function barChart(cid,labels,values,colors,opts){
   $(cid).innerHTML=`<svg class="bar-svg" viewBox="0 0 ${W} ${H}">${g}${gl}${bars}</svg>`;
 }
 
+// ── SVG LINE CHART ────────────────────────────────────────────────
 function lineChart(cid,labels,series,opts){
   const W=560,H=210,ml=44,mr=14,mt=14,mb=36,cw=W-ml-mr,ch=H-mt-mb,n=labels.length;
   if(n<2)return;
@@ -186,6 +282,7 @@ function lineChart(cid,labels,series,opts){
   $(cid).innerHTML=`<svg class="bar-svg" viewBox="0 0 ${W} ${H}">${g}${ay}${ax}${paths}${dots}</svg>`;
 }
 
+// ── DOUGHNUT ──────────────────────────────────────────────────────
 function doughnut(cid,slices){
   const R=54,r=36,cx=70,cy=70;
   const tot=slices.reduce((a,s)=>a+s.v,0)||1;
@@ -205,6 +302,7 @@ function doughnut(cid,slices){
   $(cid).innerHTML=`<div class="donut-wrap"><svg viewBox="0 0 140 140" width="130" height="130">${paths}<text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="11" fill="#64748b" font-family="Segoe UI,sans-serif">Time</text></svg><div class="donut-legend">${leg}</div></div>`;
 }
 
+// ── COREY RING ────────────────────────────────────────────────────
 function coreyRing(cid,pv){
   const R=50,r=36,cx=65,cy=65,sw=pv*Math.PI*2;
   const x1=cx+R*Math.cos(-Math.PI/2),y1=cy+R*Math.sin(-Math.PI/2);
@@ -217,39 +315,107 @@ function coreyRing(cid,pv){
   $(cid).innerHTML=`<svg viewBox="0 0 130 130" width="120" height="120">${bg}${arc}<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="15" font-weight="700" fill="#f97316" font-family="Segoe UI,sans-serif">${(pv*100).toFixed(1)}%</text><text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="9" fill="#64748b" font-family="Segoe UI,sans-serif">OF TEAM</text></svg>`;
 }
 
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
 function render(){
   const d=WEEKS[cw];
+
+  // Tabs
   $('tabs').innerHTML=WEEKS.map((w,i)=>`<button class="tab${i===cw?' on':''}" onclick="cw=${i};render()">${esc(w.week)}</button>`).join('');
-  $('sKpis').innerHTML=[['CM Calls',d.sTeam.cm,'','sv'],['Team FCE',pct(d.sTeam.fce),'','sv'],['% Time on CM',pct(d.sTeam.pct_cm),'of total hours','sv'],['Avg Response',d.sTeam.resp.toFixed(2)+' hrs','','sv'],['Parts / Call',$f(d.sTeam.ppc),'CM + parts calls','sv'],['Parts / Parts Call',$f(d.sTeam.pppc),'calls with parts','sv'],['Total Cost / Call',$f(d.sTeam.tcc),'parts + mileage','sv']].map(([l,v,s,c])=>`<div class="kpi ${c}"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div>${s?`<div class="kpi-s">${s}</div>`:''}</div>`).join('');
+
+  // ── Service KPIs
+  $('sKpis').innerHTML=[
+    ['CM Calls',d.sTeam.cm,'','sv'],
+    ['Team FCE',pct(d.sTeam.fce),'','sv'],
+    ['% Time on CM',pct(d.sTeam.pct_cm),'of total hours','sv'],
+    ['Avg Response',d.sTeam.resp.toFixed(2)+' hrs','','sv'],
+    ['Parts / Call',$f(d.sTeam.ppc),'CM + parts calls','sv'],
+    ['Parts / Parts Call',$f(d.sTeam.pppc),'calls with parts','sv'],
+    ['Total Cost / Call',$f(d.sTeam.tcc),'parts + mileage','sv'],
+  ].map(([l,v,s,c])=>`<div class="kpi ${c}"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div>${s?`<div class="kpi-s">${s}</div>`:''}</div>`).join('');
+
+  // ── Service table
   $('sTh').innerHTML=`<tr>${['Technician','CM Calls','% Time CM','FCE','Avg Resp (hrs)','Parts/Call','Parts/Parts Call','Total Cost/Call'].map((h,i)=>`<th${i?'':' style="text-align:left"'}>${h}</th>`).join('')}</tr>`;
-  $('sTb').innerHTML=SVC.map(t=>{const m=d.service[t];return`<tr><td>${esc(t)}</td><td>${m.cm}</td><td>${pct(m.pct_cm)}</td><td><span class="bdg ${fc(m.fce)}">${pct(m.fce)}</span></td><td>${m.resp.toFixed(2)}</td><td>${$f(m.ppc)}</td><td>${$f(m.pppc)}</td><td>${$f(m.tcc)}</td></tr>`}).join('')+`<tr class="tr"><td>TEAM TOTAL</td><td>${d.sTeam.cm}</td><td>${pct(d.sTeam.pct_cm)}</td><td><span class="bdg ${fc(d.sTeam.fce)}">${pct(d.sTeam.fce)}</span></td><td>${d.sTeam.resp.toFixed(2)}</td><td>${$f(d.sTeam.ppc)}</td><td>${$f(d.sTeam.pppc)}</td><td>${$f(d.sTeam.tcc)}</td></tr>`;
-  $('tKpis').innerHTML=[['CM Calls',d.tTeam.cm,'','ts'],['Team FCE',pct(d.tTeam.fce),'','ts'],['Avg Response',d.tTeam.resp.toFixed(2)+' hrs','','ts'],['% Time on CM',pct(d.tTeam.pct_cm),'of total hours','ts'],['% Time on UA',pct(d.tTeam.pct_ua),'user assistance','ts'],['Remote Resolution',d.tTeam.remote>0?pct(d.tTeam.remote):'—','network trouble','ts']].map(([l,v,s,c])=>`<div class="kpi ${c}"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div>${s?`<div class="kpi-s">${s}</div>`:''}</div>`).join('');
+  $('sTb').innerHTML=SVC.map(t=>{const m=d.service[t];return`<tr><td>${esc(t)}</td><td>${m.cm}</td><td>${pct(m.pct_cm)}</td><td><span class="bdg ${fc(m.fce)}">${pct(m.fce)}</span></td><td>${m.resp.toFixed(2)}</td><td>${$f(m.ppc)}</td><td>${$f(m.pppc)}</td><td>${$f(m.tcc)}</td></tr>`}).join('')+
+  `<tr class="tr"><td>TEAM TOTAL</td><td>${d.sTeam.cm}</td><td>${pct(d.sTeam.pct_cm)}</td><td><span class="bdg ${fc(d.sTeam.fce)}">${pct(d.sTeam.fce)}</span></td><td>${d.sTeam.resp.toFixed(2)}</td><td>${$f(d.sTeam.ppc)}</td><td>${$f(d.sTeam.pppc)}</td><td>${$f(d.sTeam.tcc)}</td></tr>`;
+
+  // ── Production KPIs
+  $('pKpis').innerHTML=[
+    ['Prod. Parts / Call',$f(d.pTeam.ppc),'production calls only','pr'],
+    ['Prod. Parts / Parts Call',$f(d.pTeam.pppc),'production w/ parts','pr'],
+    ['Prod. Cost / Call',$f(d.pTeam.tcc),'parts + mileage','pr'],
+  ].map(([l,v,s,c])=>`<div class="kpi ${c}"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div>${s?`<div class="kpi-s">${s}</div>`:''}</div>`).join('');
+
+  // ── Production table
+  $('pTh').innerHTML=`<tr>${['Technician','Prod. Parts/Call','Prod. Parts/Parts Call','Prod. Cost/Call'].map((h,i)=>`<th${i?'':' style="text-align:left"'}>${h}</th>`).join('')}</tr>`;
+  $('pTb').innerHTML=SVC.map(t=>{const p=d.prod[t];return`<tr><td>${esc(t)}</td><td>${$f(p.ppc)}</td><td>${$f(p.pppc)}</td><td>${$f(p.tcc)}</td></tr>`}).join('')+
+  `<tr class="tr"><td>TEAM TOTAL</td><td>${$f(d.pTeam.ppc)}</td><td>${$f(d.pTeam.pppc)}</td><td>${$f(d.pTeam.tcc)}</td></tr>`;
+
+  // ── TSS KPIs
+  $('tKpis').innerHTML=[
+    ['CM Calls',d.tTeam.cm,'','ts'],
+    ['Team FCE',pct(d.tTeam.fce),'','ts'],
+    ['Avg Response',d.tTeam.resp.toFixed(2)+' hrs','','ts'],
+    ['% Time on CM',pct(d.tTeam.pct_cm),'of total hours','ts'],
+    ['% Time on UA',pct(d.tTeam.pct_ua),'user assistance','ts'],
+    ['Remote Resolution',d.tTeam.remote>0?pct(d.tTeam.remote):'—','network trouble','ts'],
+  ].map(([l,v,s,c])=>`<div class="kpi ${c}"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div>${s?`<div class="kpi-s">${s}</div>`:''}</div>`).join('');
+
+  // ── TSS table
   $('tTh').innerHTML=`<tr>${['Technician','CM Calls','FCE','Avg Resp (hrs)','% Time CM','% Time UA','Remote Res.'].map((h,i)=>`<th${i?'':' style="text-align:left"'}>${h}</th>`).join('')}</tr>`;
-  $('tTb').innerHTML=TSS.map(t=>{const m=d.tss[t];return`<tr><td>${esc(t)}</td><td>${m.cm}</td><td><span class="bdg ${fc(m.fce)}">${pct(m.fce)}</span></td><td>${m.resp.toFixed(2)}</td><td>${pct(m.pct_cm)}</td><td>${pct(m.pct_ua)}</td><td>${m.remote>0?pct(m.remote):'—'}</td></tr>`}).join('')+`<tr class="tr"><td>TEAM TOTAL</td><td>${d.tTeam.cm}</td><td><span class="bdg ${fc(d.tTeam.fce)}">${pct(d.tTeam.fce)}</span></td><td>${d.tTeam.resp.toFixed(2)}</td><td>${pct(d.tTeam.pct_cm)}</td><td>${pct(d.tTeam.pct_ua)}</td><td>${d.tTeam.remote>0?pct(d.tTeam.remote):'—'}</td></tr>`;
+  $('tTb').innerHTML=TSS.map(t=>{const m=d.tss[t];return`<tr><td>${esc(t)}</td><td>${m.cm}</td><td><span class="bdg ${fc(m.fce)}">${pct(m.fce)}</span></td><td>${m.resp.toFixed(2)}</td><td>${pct(m.pct_cm)}</td><td>${pct(m.pct_ua)}</td><td>${m.remote>0?pct(m.remote):'—'}</td></tr>`}).join('')+
+  `<tr class="tr"><td>TEAM TOTAL</td><td>${d.tTeam.cm}</td><td><span class="bdg ${fc(d.tTeam.fce)}">${pct(d.tTeam.fce)}</span></td><td>${d.tTeam.resp.toFixed(2)}</td><td>${pct(d.tTeam.pct_cm)}</td><td>${pct(d.tTeam.pct_ua)}</td><td>${d.tTeam.remote>0?pct(d.tTeam.remote):'—'}</td></tr>`;
+
+  // ── Corey
   coreyRing('cCoreyDonut',d.corey.calls/d.corey.total);
   $('cCalls').textContent=d.corey.calls;
   $('cTotal').textContent=d.corey.total;
+
+  // ── Bar charts
   barChart('cFceSvc',SVC.map(fn),SVC.map(t=>+(d.service[t].fce*100).toFixed(1)),SCOLS,{pct:true});
-  barChart('cParts',SVC.map(fn),SVC.map(t=>+d.service[t].ppc.toFixed(2)),SCOLS,{dol:true});
+  barChart('cParts', SVC.map(fn),SVC.map(t=>+d.service[t].ppc.toFixed(2)),SCOLS,{dol:true});
   barChart('cFceTss',TSS.map(fn),TSS.map(t=>+(d.tss[t].fce*100).toFixed(1)),TCOLS,{pct:true});
+  barChart('cProdPpc',SVC.map(fn),SVC.map(t=>+d.prod[t].ppc.toFixed(2)),PCOLS,{dol:true});
+  barChart('cProdTcc',SVC.map(fn),SVC.map(t=>+d.prod[t].tcc.toFixed(2)),PCOLS,{dol:true});
+
+  // ── TSS doughnut
   const tt=d.tTeam,oth=Math.max(0,1-tt.pct_cm-tt.pct_ua-tt.pct_dca);
-  doughnut('cDonut',[{label:'CM',v:+(tt.pct_cm*100).toFixed(1),color:'#10b981'},{label:'User Assist',v:+(tt.pct_ua*100).toFixed(1),color:'#3b82f6'},{label:'DCA',v:+(tt.pct_dca*100).toFixed(1),color:'#8b5cf6'},{label:'Other',v:+(oth*100).toFixed(1),color:'#1e293b'}]);
+  doughnut('cDonut',[
+    {label:'CM',v:+(tt.pct_cm*100).toFixed(1),color:'#10b981'},
+    {label:'User Assist',v:+(tt.pct_ua*100).toFixed(1),color:'#3b82f6'},
+    {label:'DCA',v:+(tt.pct_dca*100).toFixed(1),color:'#8b5cf6'},
+    {label:'Other',v:+(oth*100).toFixed(1),color:'#1e293b'},
+  ]);
+
   renderTrends();
 }
 
+// ═══════════════════════════════════════════
+// TRENDS
+// ═══════════════════════════════════════════
 const S_OPT=[{k:'fce',l:'FCE'},{k:'pct_cm',l:'% Time CM'},{k:'ppc',l:'Parts/Call'},{k:'tcc',l:'Total Cost'},{k:'resp',l:'Avg Resp'}];
 const T_OPT=[{k:'fce',l:'FCE'},{k:'pct_cm',l:'% Time CM'},{k:'pct_ua',l:'% Time UA'},{k:'remote',l:'Remote Res.'},{k:'resp',l:'Avg Resp'}];
+const P_OPT=[{k:'ppc',l:'Prod Parts/Call'},{k:'pppc',l:'Prod Parts/Parts Call'},{k:'tcc',l:'Prod Cost/Call'}];
 
 function renderTrends(){
   $('sTrBtns').innerHTML=S_OPT.map(o=>`<button class="tb${o.k===sTrM?' on':''}" onclick="sTrM='${o.k}';renderTrends()">${o.l}</button>`).join('');
   $('tTrBtns').innerHTML=T_OPT.map(o=>`<button class="tb${o.k===tTrM?' on':''}" onclick="tTrM='${o.k}';renderTrends()">${o.l}</button>`).join('');
+  $('pTrBtns').innerHTML=P_OPT.map(o=>`<button class="tb${o.k===pTrM?' on':''}" onclick="pTrM='${o.k}';renderTrends()">${o.l}</button>`).join('');
+
   const ipS=['fce','pct_cm'].includes(sTrM),idS=['ppc','pppc','tcc'].includes(sTrM);
   const ipT=['fce','pct_cm','pct_ua','remote'].includes(tTrM);
+
   lineChart('cSTrend',WL,SVC.map((t,i)=>({name:fn(t),color:SCOLS[i],data:WEEKS.map(w=>ipS?+(w.service[t][sTrM]*100).toFixed(1):+w.service[t][sTrM].toFixed(2))})),{pct:ipS,dol:idS});
   $('sLeg').innerHTML=SVC.map((t,i)=>`<div class="li"><div class="ld" style="background:${SCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
+
   lineChart('cTTrend',WL,TSS.map((t,i)=>({name:fn(t),color:TCOLS[i],data:WEEKS.map(w=>ipT?+(w.tss[t][tTrM]*100).toFixed(1):+w.tss[t][tTrM].toFixed(2))})),{pct:ipT});
   $('tLeg').innerHTML=TSS.map((t,i)=>`<div class="li"><div class="ld" style="background:${TCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
+
+  lineChart('cPTrend',WL,SVC.map((t,i)=>({name:fn(t),color:PCOLS[i],data:WEEKS.map(w=>+w.prod[t][pTrM].toFixed(2))})),{dol:true});
+  $('pLeg').innerHTML=SVC.map((t,i)=>`<div class="li"><div class="ld" style="background:${PCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
 }
+
 render();
 </script>
 </body>
