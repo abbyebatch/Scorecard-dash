@@ -170,10 +170,10 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 // ═══════════════════════════════════════════
 const WEEKS=[
   {week:"2/9 \u2013 2/15",
-   service:{"Chad Mahand":{cm:15,pct_cm:0.473,fce:0.867,resp:2.37,ppc:99.89,pppc:266.38,tcc:105.41},"Jimmy Puck":{cm:11,pct_cm:0.331,fce:0.636,resp:1.53,ppc:38.37,pppc:230.23,tcc:56.45},"Jim Stacy":{cm:15,pct_cm:0.532,fce:0.867,resp:3.01,ppc:56.20,pppc:136.50,tcc:73.58},"Scott Reinert":{cm:14,pct_cm:0.346,fce:0.857,resp:1.60,ppc:50.45,pppc:189.18,tcc:56.79},"Vynce Stewart":{cm:23,pct_cm:0.417,fce:0.783,resp:1.20,ppc:59.96,pppc:229.84,tcc:64.95}},
-   sTeam:{cm:78,pct_cm:0.417,fce:0.808,resp:1.89,ppc:62.05,pppc:206.00,tcc:71.81},
+   service:{"Chad Mahand":{cm:15,pct_cm:0.4733,fce:0.8667,resp:2.3733,ppc:99.89,pppc:266.38,tcc:105.41},"Jimmy Puck":{cm:11,pct_cm:0.3307,fce:0.6364,resp:1.5345,ppc:38.37,pppc:230.23,tcc:54.00},"Jim Stacy":{cm:15,pct_cm:0.5325,fce:0.8667,resp:3.0053,ppc:56.20,pppc:136.50,tcc:73.58},"Scott Reinert":{cm:14,pct_cm:0.3458,fce:0.8571,resp:1.595,ppc:50.45,pppc:189.18,tcc:56.79},"Vynce Stewart":{cm:23,pct_cm:0.417,fce:0.7826,resp:1.1978,ppc:59.96,pppc:229.84,tcc:64.95}},
+   sTeam:{cm:78,pct_cm:0.4166,fce:0.8077,resp:1.8903,ppc:62.05,pppc:206.00,tcc:71.46},
    prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0,pppc:0,tcc:0},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
-   pTeam:{ppc:0,pppc:0,tcc:0},
+   pTeam:{calls:4,ppc:0,pppc:0,tcc:0},
    tss:{"Alex Livingston":{cm:7,fce:1.000,resp:0.23,pct_cm:0.198,pct_ua:0.258,remote:0},"Tanner Cowan":{cm:25,fce:0.920,resp:0.29,pct_cm:0.262,pct_ua:0.056,remote:0},"Rhyan O'Shane":{cm:7,fce:1.000,resp:0.54,pct_cm:0.136,pct_ua:0.007,remote:0}},
    tTeam:{cm:39,fce:0.949,resp:0.33,pct_cm:0.204,pct_ua:0.100,pct_dca:0.034,remote:0},
    corey:{calls:48,total:182}},
@@ -182,25 +182,25 @@ const WEEKS=[
    service:{"Chad Mahand":{cm:21,pct_cm:0.732,fce:0.762,resp:1.96,ppc:47.97,pppc:150.75,tcc:56.18},"Jimmy Puck":{cm:9,pct_cm:0.298,fce:0.889,resp:1.88,ppc:163.51,pppc:299.77,tcc:177.77},"Jim Stacy":{cm:9,pct_cm:0.414,fce:0.778,resp:2.27,ppc:90.53,pppc:203.68,tcc:111.45},"Scott Reinert":{cm:17,pct_cm:0.443,fce:0.941,resp:1.43,ppc:36.77,pppc:125.00,tcc:48.54},"Vynce Stewart":{cm:14,pct_cm:0.454,fce:0.786,resp:1.09,ppc:25.99,pppc:72.76,tcc:35.89}},
    sTeam:{cm:70,pct_cm:0.469,fce:0.829,resp:1.69,ppc:63.80,pppc:172.50,tcc:75.64},
    prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0,pppc:0,tcc:0},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
-   pTeam:{ppc:0,pppc:0,tcc:0},
+   pTeam:{calls:2,ppc:0,pppc:0,tcc:0},
    tss:{"Alex Livingston":{cm:19,fce:0.895,resp:1.53,pct_cm:0.336,pct_ua:0.158,remote:0.895},"Tanner Cowan":{cm:7,fce:1.000,resp:1.80,pct_cm:0.233,pct_ua:0.098,remote:0.714},"Rhyan O'Shane":{cm:10,fce:0.800,resp:0.36,pct_cm:0.095,pct_ua:0.109,remote:0.800}},
    tTeam:{cm:36,fce:0.889,resp:1.26,pct_cm:0.210,pct_ua:0.121,pct_dca:0.124,remote:0.833},
    corey:{calls:70,total:141}},
 
   {week:"2/23 \u2013 2/27",
-   service:{"Chad Mahand":{cm:23,pct_cm:0.825,fce:0.826,resp:1.80,ppc:44.07,pppc:168.93,tcc:50.89},"Jimmy Puck":{cm:15,pct_cm:0.383,fce:0.733,resp:1.48,ppc:35.55,pppc:127.97,tcc:49.62},"Jim Stacy":{cm:10,pct_cm:0.469,fce:0.700,resp:1.55,ppc:51.01,pppc:122.43,tcc:64.02},"Scott Reinert":{cm:10,pct_cm:0.403,fce:1.000,resp:1.86,ppc:5.63,pppc:20.66,tcc:36.75},"Vynce Stewart":{cm:18,pct_cm:0.312,fce:0.778,resp:1.23,ppc:29.53,pppc:132.90,tcc:36.03}},
-   sTeam:{cm:76,pct_cm:0.445,fce:0.803,resp:1.58,ppc:34.87,pppc:124.31,tcc:47.37},
-   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:1539.16,pppc:2308.74,tcc:1547.32},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
-   pTeam:{ppc:1539.16,pppc:2308.74,tcc:1547.32},
-   tss:{"Alex Livingston":{cm:18,fce:0.889,resp:0.82,pct_cm:0.272,pct_ua:0.098,remote:0.833},"Tanner Cowan":{cm:28,fce:1.000,resp:0.69,pct_cm:0.533,pct_ua:0.168,remote:0.737},"Rhyan O'Shane":{cm:15,fce:0.867,resp:0.90,pct_cm:0.190,pct_ua:0.108,remote:0.778}},
-   tTeam:{cm:61,fce:0.934,resp:0.78,pct_cm:0.333,pct_ua:0.125,pct_dca:0.109,remote:0.775},
-   corey:{calls:94,total:173}},
+   service:{"Chad Mahand":{cm:19,pct_cm:0.7937,fce:0.8421,resp:1.8432,ppc:44.69,pppc:169.84,tcc:52.25},"Jimmy Puck":{cm:12,pct_cm:0.3412,fce:0.6667,resp:1.6658,ppc:28.71,pppc:143.57,tcc:42.48},"Jim Stacy":{cm:10,pct_cm:0.5436,fce:0.7000,resp:1.5510,ppc:27.26,pppc:74.98,tcc:41.46},"Scott Reinert":{cm:10,pct_cm:0.4956,fce:1.0000,resp:1.8570,ppc:5.63,pppc:20.66,tcc:36.75},"Vynce Stewart":{cm:15,pct_cm:0.6624,fce:0.8000,resp:1.2193,ppc:20.15,pppc:100.76,tcc:24.49}},
+   sTeam:{cm:66,pct_cm:0.5536,fce:0.8030,resp:1.627,ppc:27.38,pppc:108.01,tcc:40.25},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0,pppc:0,tcc:0},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{calls:0,ppc:0,pppc:0,tcc:0},
+   tss:{"Alex Livingston":{cm:15,fce:0.8667,resp:0.7087,pct_cm:0.2686,pct_ua:0.0790,remote:0.8333},"Tanner Cowan":{cm:27,fce:1.0000,resp:0.6993,pct_cm:0.6013,pct_ua:0.1971,remote:0.7368},"Rhyan O'Shane":{cm:15,fce:0.8667,resp:0.8993,pct_cm:0.2148,pct_ua:0.1219,remote:0.7778}},
+   tTeam:{cm:57,fce:0.9298,resp:0.7544,pct_cm:0.3619,pct_ua:0.1338,pct_dca:0.1225,remote:0},
+   corey:{calls:93,total:167}},
 
   {week:"3/2 \u2013 3/6",
    service:{"Chad Mahand":{cm:20,pct_cm:0.7203,fce:0.9000,resp:1.428,ppc:44.75,pppc:178.99,tcc:49.58},"Jimmy Puck":{cm:14,pct_cm:0.5511,fce:0.7143,resp:1.5436,ppc:23.21,pppc:371.32,tcc:28.98},"Jim Stacy":{cm:10,pct_cm:0.3701,fce:0.7000,resp:1.995,ppc:97.16,pppc:152.67,tcc:105.68},"Scott Reinert":{cm:5,pct_cm:0.1529,fce:0.8000,resp:2.114,ppc:32.10,pppc:160.50,tcc:44.98},"Vynce Stewart":{cm:14,pct_cm:0.4129,fce:0.7857,resp:1.0629,ppc:7.44,pppc:52.05,tcc:16.64}},
    sTeam:{cm:63,pct_cm:0.4422,fce:0.7937,resp:1.517,ppc:39.39,pppc:162.48,tcc:46.60},
    prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:1539.16,pppc:2308.74,tcc:1547.32},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
-   pTeam:{ppc:1539.16,pppc:2308.74,tcc:1547.32},
+   pTeam:{calls:2,ppc:1539.16,pppc:2308.74,tcc:1547.32},
    tss:{"Alex Livingston":{cm:28,fce:0.9286,resp:1.3075,pct_cm:0.6207,pct_ua:0.1815,remote:0.9474},"Tanner Cowan":{cm:8,fce:1.0000,resp:0.4488,pct_cm:0.0773,pct_ua:0.0292,remote:0.7500},"Rhyan O'Shane":{cm:20,fce:1.0000,resp:1.028,pct_cm:0.2768,pct_ua:0.0877,remote:0.7500}},
    tTeam:{cm:56,fce:0.9643,resp:1.085,pct_cm:0.2664,pct_ua:0.0832,pct_dca:0.0097,remote:0.8571},
    corey:{calls:91,total:163}},
@@ -209,10 +209,19 @@ const WEEKS=[
    service:{"Chad Mahand":{cm:14,pct_cm:0.5337,fce:0.8571,resp:2.615,ppc:31.11,pppc:145.20,tcc:41.11},"Jimmy Puck":{cm:16,pct_cm:0.7125,fce:0.7500,resp:1.5737,ppc:16.14,pppc:258.17,tcc:23.70},"Jim Stacy":{cm:12,pct_cm:0.5770,fce:0.9167,resp:1.780,ppc:36.31,pppc:94.42,tcc:46.44},"Scott Reinert":{cm:7,pct_cm:0.3168,fce:0.8571,resp:1.7457,ppc:158.79,pppc:555.77,tcc:175.59},"Vynce Stewart":{cm:14,pct_cm:0.5053,fce:0.7857,resp:1.245,ppc:37.93,pppc:176.98,tcc:48.77}},
    sTeam:{cm:63,pct_cm:0.5257,fce:0.8254,resp:1.7905,ppc:43.88,pppc:200.60,tcc:54.23},
    prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:18.20},"Jimmy Puck":{ppc:58.71,pppc:234.84,tcc:68.34},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
-   pTeam:{ppc:29.36,pppc:234.84,tcc:43.27},
+   pTeam:{calls:7,ppc:29.36,pppc:234.84,tcc:43.27},
    tss:{"Alex Livingston":{cm:12,fce:0.9167,resp:0.2233,pct_cm:0.2156,pct_ua:0.0753,remote:0.8750},"Tanner Cowan":{cm:23,fce:0.9130,resp:0.3678,pct_cm:0.4645,pct_ua:0.2252,remote:0.7500},"Rhyan O'Shane":{cm:26,fce:0.9615,resp:0.3054,pct_cm:0.2053,pct_ua:0.1067,remote:1.0000}},
    tTeam:{cm:61,fce:0.9344,resp:0.3128,pct_cm:0.3106,pct_ua:0.1462,pct_dca:0.0434,remote:0.8710},
-   corey:{calls:53,total:89}}
+   corey:{calls:53,total:89}},
+
+  {week:"3/16 \u2013 3/20",
+   service:{"Chad Mahand":{cm:18,pct_cm:0.6418,fce:0.7778,resp:1.9578,ppc:55.30,pppc:165.89,tcc:64.47},"Jimmy Puck":{cm:15,pct_cm:0.5329,fce:0.6667,resp:1.9020,ppc:29.55,pppc:147.75,tcc:46.12},"Jim Stacy":{cm:13,pct_cm:0.5928,fce:0.7692,resp:2.9177,ppc:46.64,pppc:101.05,tcc:74.53},"Scott Reinert":{cm:12,pct_cm:0.4525,fce:0.8333,resp:2.7492,ppc:52.88,pppc:137.50,tcc:70.01},"Vynce Stewart":{cm:0,pct_cm:0,fce:0,resp:0,ppc:0,pppc:0,tcc:0}},
+   sTeam:{cm:58,pct_cm:0.5553,fce:0.7586,resp:2.3222,ppc:46.31,pppc:136.62,tcc:63.24},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0,pppc:0,tcc:7.00},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{calls:3,ppc:0,pppc:0,tcc:7.00},
+   tss:{"Alex Livingston":{cm:12,fce:1.0000,resp:0.5417,pct_cm:0.3003,pct_ua:0.1009,remote:1.0000},"Tanner Cowan":{cm:31,fce:0.9355,resp:0.4997,pct_cm:0.6037,pct_ua:0.1546,remote:0.8182},"Rhyan O'Shane":{cm:16,fce:1.0000,resp:0.4562,pct_cm:0.1627,pct_ua:0.0815,remote:1.0000}},
+   tTeam:{cm:59,fce:0.9661,resp:0.4964,pct_cm:0.3801,pct_ua:0.1168,pct_dca:0.0334,remote:0.8919},
+   corey:{calls:32,total:104}}
 ];
 
 const SVC=['Chad Mahand','Jimmy Puck','Jim Stacy','Scott Reinert','Vynce Stewart'];
@@ -342,6 +351,7 @@ function render(){
 
   // ── Production KPIs
   $('pKpis').innerHTML=[
+    ['Total Production Calls',d.pTeam.calls,'this week','pr'],
     ['Prod. Parts / Call',$f(d.pTeam.ppc),'production calls only','pr'],
     ['Prod. Parts / Parts Call',$f(d.pTeam.pppc),'production w/ parts','pr'],
     ['Prod. Cost / Call',$f(d.pTeam.tcc),'parts + mileage','pr'],
