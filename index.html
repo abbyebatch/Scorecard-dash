@@ -104,6 +104,13 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 .corey-info h3{font-size:1rem;font-weight:700;margin-bottom:5px;}
 .corey-info p{font-size:0.8rem;color:var(--muted);line-height:1.75;}
 .corey-info strong{color:var(--orange);font-weight:700;}
+.nav-wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.month-select-wrap{display:flex;align-items:center;gap:8px;}
+.month-label{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.month-sel{font-size:0.78rem;padding:7px 32px 7px 13px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--text);cursor:pointer;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;transition:border-color 0.18s;}
+.month-sel:hover{border-color:var(--border2);}
+.month-sel:focus{outline:none;border-color:var(--blue);}
+.month-sel option{background:var(--s2);color:var(--text);}
 </style>
 </head>
 <body>
@@ -111,7 +118,13 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 
 <header>
   <div class="logo"><h1>Technician Scorecard</h1><p>Weekly Performance Dashboard · 2026</p></div>
+  <div class="nav-wrap">
+  <div class="month-select-wrap">
+    <label class="month-label">Month</label>
+    <select class="month-sel" id="monthSel" onchange="onMonthChange(this.value)"></select>
+  </div>
   <div class="tabs" id="tabs"></div>
+</div>
 </header>
 
 <!-- SERVICE -->
@@ -376,7 +389,25 @@ function render(){
   const d=WEEKS[cw];
 
   // Tabs
-  $('tabs').innerHTML=WEEKS.map((w,i)=>`<button class="tab${i===cw?' on':''}" onclick="cw=${i};render()">${esc(w.week)}</button>`).join('');
+  // Month grouping
+  const MONTH_MAP = {
+    'February 2026': [0,1,2],
+    'March 2026':    [3,4,5,6,7],
+    'April 2026':    [8,9,10],
+  };
+  const curMonth = Object.keys(MONTH_MAP).find(m => MONTH_MAP[m].includes(cw)) || Object.keys(MONTH_MAP)[0];
+
+  // Populate month dropdown
+  const sel = $('monthSel');
+  sel.innerHTML = Object.keys(MONTH_MAP).map(m =>
+    `<option value="${esc(m)}"${m===curMonth?' selected':''}>${esc(m)}</option>`
+  ).join('');
+
+  // Show only weeks for current month
+  const visibleIdxs = MONTH_MAP[curMonth];
+  $('tabs').innerHTML = visibleIdxs.map(i =>
+    `<button class="tab${i===cw?' on':''}" onclick="cw=${i};render()">${esc(WEEKS[i].week)}</button>`
+  ).join('');
 
   // ── Service KPIs
   $('sKpis').innerHTML=[
@@ -471,6 +502,18 @@ function renderTrends(){
 
   lineChart('cPTrend',WL,SVC.map((t,i)=>({name:fn(t),color:PCOLS[i],data:WEEKS.map(w=>+w.prod[t][pTrM].toFixed(2))})),{dol:true});
   $('pLeg').innerHTML=SVC.map((t,i)=>`<div class="li"><div class="ld" style="background:${PCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
+}
+
+function onMonthChange(month) {
+  const MONTH_MAP = {
+    'February 2026': [0,1,2],
+    'March 2026':    [3,4,5,6,7],
+    'April 2026':    [8,9,10],
+  };
+  // Jump to first week of selected month
+  const idxs = MONTH_MAP[month] || [0];
+  cw = idxs[idxs.length - 1]; // default to latest week in month
+  render();
 }
 
 render();
