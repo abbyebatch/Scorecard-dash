@@ -279,7 +279,16 @@ const WEEKS=[
    pTeam:{calls:1,ppc:96.64,pppc:96.64,tcc:96.64},
    tss:{"Alex Livingston":{cm:8,fce:1.0000,resp:0.7875,pct_cm:0.2561,pct_ua:0.0009,pct_sh:0.1772,remote:1.0000,pct_o:0.5667},"Tanner Cowan":{cm:14,fce:0.9286,resp:0.2929,pct_cm:0.376,pct_ua:0.1752,pct_sh:0.2651,remote:1.0000,pct_o:0.3589},"Rhyan O'Shane":{cm:17,fce:1.0000,resp:0.6112,pct_cm:0.1345,pct_ua:0.0762,pct_sh:0.1954,remote:0.7500,pct_o:0.67}},
    tTeam:{cm:39,fce:0.9744,resp:0.5331,pct_cm:0.2549,pct_ua:0.0983,pct_dca:0.0168,pct_sh:0.2185,remote:0.9167,pct_o:0.5266},
-   corey:{calls:87,total:145}}
+   corey:{calls:87,total:145}},
+
+  {week:"4/27 – 5/1",
+   service:{"Chad Mahand":{cm:19,pct_cm:0.729,fce:0.8947,resp:2.0632,ppc:24.41,pppc:154.57,tcc:29.38},"Jimmy Puck":{cm:10,pct_cm:0.5205,fce:0.9,resp:1.793,ppc:10.19,pppc:101.91,tcc:22.93},"Jim Stacy":{cm:18,pct_cm:0.5519,fce:0.9444,resp:1.9594,ppc:19.36,pppc:52.54,tcc:27.53},"Scott Reinert":{cm:8,pct_cm:0.2224,fce:1.0,resp:2.3725,ppc:0.00,pppc:0,tcc:17.06},"Vynce Stewart":{cm:16,pct_cm:0.519,fce:0.9375,resp:1.8269,ppc:67.61,pppc:216.37,tcc:80.35}},
+   sTeam:{cm:71,pct_cm:0.4937,fce:0.9296,resp:1.9804,ppc:27.99,pppc:125.95,tcc:37.95},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0,pppc:0,tcc:18.20},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{calls:4,ppc:0,pppc:0,tcc:18.20},
+   tss:{"Alex Livingston":{cm:9,fce:1.0,resp:0.2,pct_cm:0.2119,pct_ua:0.0129,pct_sh:0.2421,pct_o:0.5459,remote:0.7143},"Tanner Cowan":{cm:23,fce:0.9565,resp:0.3535,pct_cm:0.3387,pct_ua:0.0626,pct_sh:0.2925,pct_o:0.3687,remote:0.875},"Rhyan O'Shane":{cm:14,fce:0.9286,resp:0.2743,pct_cm:0.1355,pct_ua:0.0768,pct_sh:0.552,pct_o:0.3125,remote:1.0}},
+   tTeam:{cm:46,fce:0.9565,resp:0.2993,pct_cm:0.2288,pct_ua:0.054,pct_dca:0.0268,pct_sh:0.3737,pct_o:0.3975,remote:0.8571},
+   corey:{calls:76,total:153}}
 ];
 
 const SVC=['Chad Mahand','Jimmy Puck','Jim Stacy','Scott Reinert','Vynce Stewart'];
@@ -394,6 +403,7 @@ function render(){
     'February 2026': [0,1,2],
     'March 2026':    [3,4,5,6,7],
     'April 2026':    [8,9,10],
+    'May 2026':      [11],
   };
   const curMonth = Object.keys(MONTH_MAP).find(m => MONTH_MAP[m].includes(cw)) || Object.keys(MONTH_MAP)[0];
 
@@ -509,6 +519,7 @@ function onMonthChange(month) {
     'February 2026': [0,1,2],
     'March 2026':    [3,4,5,6,7],
     'April 2026':    [8,9,10],
+    'May 2026':      [11],
   };
   // Jump to first week of selected month
   const idxs = MONTH_MAP[month] || [0];
