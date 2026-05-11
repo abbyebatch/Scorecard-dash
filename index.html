@@ -288,7 +288,16 @@ const WEEKS=[
    pTeam:{calls:4,ppc:0,pppc:0,tcc:18.20},
    tss:{"Alex Livingston":{cm:9,fce:1.0,resp:0.2,pct_cm:0.2119,pct_ua:0.0129,pct_sh:0.2421,pct_o:0.5459,remote:0.7143},"Tanner Cowan":{cm:23,fce:0.9565,resp:0.3535,pct_cm:0.3387,pct_ua:0.0626,pct_sh:0.2925,pct_o:0.3687,remote:0.875},"Rhyan O'Shane":{cm:14,fce:0.9286,resp:0.2743,pct_cm:0.1355,pct_ua:0.0768,pct_sh:0.552,pct_o:0.3125,remote:1.0}},
    tTeam:{cm:46,fce:0.9565,resp:0.2993,pct_cm:0.2288,pct_ua:0.054,pct_dca:0.0268,pct_sh:0.3737,pct_o:0.3975,remote:0.8571},
-   corey:{calls:76,total:153}}
+   corey:{calls:76,total:153}},
+
+  {week:"5/4 – 5/8",
+   service:{"Chad Mahand":{cm:4,pct_cm:0.1705,fce:1.0,resp:2.0975,ppc:69.93,pppc:116.54,tcc:76.37},"Jimmy Puck":{cm:8,pct_cm:0.5401,fce:0.625,resp:2.8312,ppc:87.35,pppc:349.42,tcc:117.45},"Jim Stacy":{cm:9,pct_cm:0.4765,fce:1.0,resp:2.1411,ppc:33.22,pppc:61.69,tcc:44.31},"Scott Reinert":{cm:24,pct_cm:0.6778,fce:0.7917,resp:1.5196,ppc:46.55,pppc:166.24,tcc:55.06},"Vynce Stewart":{cm:14,pct_cm:0.4795,fce:0.7143,resp:2.5486,ppc:62.69,pppc:292.53,tcc:65.29}},
+   sTeam:{cm:59,pct_cm:0.4794,fce:0.7966,resp:2.0756,ppc:54.18,pppc:160.07,tcc:64.43},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:2.80},"Jimmy Puck":{ppc:0,pppc:0,tcc:0},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{calls:1,ppc:0,pppc:0,tcc:2.80},
+   tss:{"Alex Livingston":{cm:21,fce:0.9524,resp:0.3667,pct_cm:0.7932,pct_ua:0.1214,pct_sh:0.0162,pct_o:0.1906,remote:0.9375},"Tanner Cowan":{cm:8,fce:0.875,resp:0.9688,pct_cm:0.1344,pct_ua:0.0869,pct_sh:0.1959,pct_o:0.6696,remote:1.0},"Rhyan O'Shane":{cm:24,fce:1.0,resp:0.6425,pct_cm:0.1686,pct_ua:0.0574,pct_sh:0.2189,pct_o:0.6125,remote:0.9444}},
+   tTeam:{cm:53,fce:0.9623,resp:0.5825,pct_cm:0.244,pct_ua:0.0777,pct_dca:0.0,pct_sh:0.1814,pct_o:0.5746,remote:0.9444},
+   corey:{calls:74,total:150}}
 ];
 
 const SVC=['Chad Mahand','Jimmy Puck','Jim Stacy','Scott Reinert','Vynce Stewart'];
@@ -296,7 +305,7 @@ const TSS=['Alex Livingston','Tanner Cowan',"Rhyan O'Shane"];
 const SCOLS=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ec4899'];
 const TCOLS=['#06b6d4','#f97316','#a78bfa'];
 const PCOLS=['#d97706','#f59e0b','#fbbf24','#b45309','#fde68a'];
-const WL=WEEKS.map(w=>w.week);
+const WL=WEEKS.map(w=>w.week.replace(/\s*[–—\-]+.*$/,'').trim());
 let cw=WEEKS.length-1, sTrM='fce', tTrM='fce', pTrM='ppc';
 const pct=v=>(v*100).toFixed(1)+'%';
 const $=id=>document.getElementById(id);
@@ -403,7 +412,7 @@ function render(){
     'February 2026': [0,1,2],
     'March 2026':    [3,4,5,6,7],
     'April 2026':    [8,9,10],
-    'May 2026':      [11],
+    'May 2026':      [11,12],
   };
   const curMonth = Object.keys(MONTH_MAP).find(m => MONTH_MAP[m].includes(cw)) || Object.keys(MONTH_MAP)[0];
 
@@ -519,7 +528,7 @@ function onMonthChange(month) {
     'February 2026': [0,1,2],
     'March 2026':    [3,4,5,6,7],
     'April 2026':    [8,9,10],
-    'May 2026':      [11],
+    'May 2026':      [11,12],
   };
   // Jump to first week of selected month
   const idxs = MONTH_MAP[month] || [0];
