@@ -101,6 +101,22 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 
 /* COREY */
 .corey-card{background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:22px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-bottom:18px;}
+
+/* Pipeline */
+--pipe:#0f766e;
+.tw-pipe{background:rgba(15,118,110,0.06);border:1px solid rgba(15,118,110,0.25);border-radius:11px;overflow:hidden;margin-bottom:18px;overflow-x:auto;}
+.tw-pipe thead th{background:rgba(15,118,110,0.18);color:#14b8a6;border-bottom:1px solid rgba(15,118,110,0.25);padding:10px 13px;font-size:0.59rem;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;text-align:left;white-space:nowrap;}
+.tw-pipe tbody tr{border-bottom:1px solid rgba(15,118,110,0.1);transition:background 0.12s;}
+.tw-pipe tbody tr:last-child{border-bottom:none;}
+.tw-pipe tbody tr:hover{background:rgba(15,118,110,0.07);}
+.tw-pipe tbody td{padding:10px 13px;font-size:0.76rem;color:var(--text);white-space:nowrap;}
+.stage-bdg{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.65rem;font-weight:700;white-space:nowrap;}
+.stage-lead{background:rgba(100,116,139,0.15);color:#94a3b8;}
+.stage-contact{background:rgba(59,130,246,0.15);color:#60a5fa;}
+.stage-proposal{background:rgba(245,158,11,0.15);color:#fbbf24;}
+.stage-negotiation{background:rgba(249,115,22,0.15);color:#fb923c;}
+.stage-won{background:rgba(16,185,129,0.15);color:#34d399;}
+.pipe-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-bottom:18px;}
 .corey-info h3{font-size:1rem;font-weight:700;margin-bottom:5px;}
 .corey-info p{font-size:0.8rem;color:var(--muted);line-height:1.75;}
 .corey-info strong{color:var(--orange);font-weight:700;}
@@ -174,6 +190,17 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
     <h3>Corey Meyer</h3>
     <p><strong id="cCalls">—</strong> Contract Visit + Supply Delivery calls this week<br>out of <strong id="cTotal">—</strong> total CV + SD calls across all technicians</p>
   </div>
+</div>
+
+
+<!-- PIPELINE -->
+<div class="sh"><div class="pip" style="background:#0f766e"></div><h2>Production Pipeline</h2><div class="rl"></div></div>
+<div class="pipe-kpis" id="pipeKpis"></div>
+<div class="tw-pipe">
+  <table style="width:100%;border-collapse:collapse;min-width:700px;">
+    <thead id="pipeTh"></thead>
+    <tbody id="pipeTb"></tbody>
+  </table>
 </div>
 
 </div>
@@ -523,6 +550,63 @@ function renderTrends(){
   $('pLeg').innerHTML=SVC.map((t,i)=>`<div class="li"><div class="ld" style="background:${PCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
 }
 
+// ═══════════════════════════════════════════
+// PIPELINE DATA
+// ═══════════════════════════════════════════
+const PIPELINE = [
+  {company:"Bentonville Child Care & Development Center Inc", erp:"AR0217", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Initial Contact",          category:"Existing - Print"},
+  {company:"Berkley Industries LLC",                         erp:"BI01",   current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
+  {company:"Cave Springs City Of",                           erp:"AR0008", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
+  {company:"Decatur Public Schools",                         erp:"AR1309", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
+  {company:"Farris Insurance Agency Inc",                    erp:"FI02",   current:true,  close:"5/31/2026", status:"Forecasted", stage:"Design Proposal/Presentation",category:"Existing - Print"},
+  {company:"Gentry City of",                                 erp:"GC02",   current:true,  close:"5/31/2026", status:"Forecasted", stage:"Negotiation",                category:"Existing - Print"},
+  {company:"Infinity Compounding Solutions LLC",             erp:"AR4543", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
+  {company:"Miller Zell Inc",                                erp:"AR3925", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
+  {company:"Moseley Public Schools",                         erp:"AR0319", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Closed Won",                 category:"Existing - Print"},
+  {company:"Springdale City of Community Engagement",        erp:"SC04",   current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
+];
+
+function stageBadge(stage) {
+  const s = stage.toLowerCase();
+  let cls = 'stage-lead';
+  if (s.includes('initial contact') || s.includes('contact')) cls = 'stage-contact';
+  else if (s.includes('proposal') || s.includes('design'))    cls = 'stage-proposal';
+  else if (s.includes('negotiation'))                         cls = 'stage-negotiation';
+  else if (s.includes('won'))                                 cls = 'stage-won';
+  return `<span class="stage-bdg ${cls}">${esc(stage)}</span>`;
+}
+
+function renderPipeline() {
+  const total   = PIPELINE.length;
+  const won     = PIPELINE.filter(d => d.stage.toLowerCase().includes('won')).length;
+  const active  = PIPELINE.filter(d => !d.stage.toLowerCase().includes('won') && !d.stage.toLowerCase().includes('lead')).length;
+  const leads   = PIPELINE.filter(d => d.stage.toLowerCase() === 'lead').length;
+  const current = PIPELINE.filter(d => d.current).length;
+
+  $('pipeKpis').innerHTML = [
+    ['Total Deals',    total,   'in pipeline',       'pr'],
+    ['Closed Won',     won,     'this period',        'pr'],
+    ['Active Stages',  active,  'proposal & beyond',  'pr'],
+    ['Leads',          leads,   'initial stage',      'pr'],
+    ['Current Clients',current, 'existing accounts',  'pr'],
+  ].map(([l,v,s,c]) => `<div class="kpi ${c}" style="border-top:2px solid #0f766e;"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div><div class="kpi-s">${s}</div></div>`).join('');
+
+  $('pipeTh').innerHTML = `<tr>${['Company','ERP #','Current Client','Close Date','Status','Stage','Category'].map(h=>`<th>${h}</th>`).join('')}</tr>`;
+
+  $('pipeTb').innerHTML = PIPELINE.map((d,i) => {
+    const bg = i%2===0 ? '' : 'style="background:rgba(15,118,110,0.04)"';
+    return `<tr ${bg}>
+      <td style="font-weight:600">${esc(d.company)}</td>
+      <td style="color:var(--muted);font-size:0.72rem">${esc(d.erp)}</td>
+      <td style="text-align:center">${d.current ? '<span style="color:#34d399">✓</span>' : '<span style="color:var(--muted)">—</span>'}</td>
+      <td style="color:var(--muted)">${esc(d.close)}</td>
+      <td style="color:var(--muted)">${esc(d.status)}</td>
+      <td>${stageBadge(d.stage)}</td>
+      <td style="color:var(--muted);font-size:0.72rem">${esc(d.category)}</td>
+    </tr>`;
+  }).join('');
+}
+
 function onMonthChange(month) {
   const MONTH_MAP = {
     'February 2026': [0,1,2],
@@ -537,6 +621,7 @@ function onMonthChange(month) {
 }
 
 render();
+renderPipeline();
 </script>
 </body>
 </html>
