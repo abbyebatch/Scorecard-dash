@@ -333,7 +333,16 @@ const WEEKS=[
    pTeam:{calls:8,ppc:136.08,pppc:544.31,tcc:153.75},
    tss:{"Alex Livingston":{cm:18,fce:1.0,resp:1.0739,pct_cm:0.3551,pct_ua:0.1588,pct_sh:0.1826,pct_o:0.4622,remote:0.8889},"Tanner Cowan":{cm:37,fce:1.0,resp:0.7519,pct_cm:0.2924,pct_ua:0.104,pct_sh:0.2526,pct_o:0.4549,remote:0.8889},"Rhyan O'Shane":{cm:0,fce:0,resp:0,pct_cm:0,pct_ua:0,pct_sh:0,pct_o:0,remote:0}},
    tTeam:{cm:55,fce:1.0,resp:0.8573,pct_cm:0.315,pct_ua:0.1237,pct_dca:0.0,pct_sh:0.2275,pct_o:0.4576,remote:0.8889},
-   corey:{calls:89,total:151}}
+   corey:{calls:89,total:151}},
+
+  {week:"5/18 – 5/22",
+   service:{"Chad Mahand":{cm:12,pct_cm:0.8533,fce:0.6667,resp:1.7392,ppc:23.31,pppc:139.85,tcc:30.83},"Jimmy Puck":{cm:15,pct_cm:0.8035,fce:0.9333,resp:1.278,ppc:38.92,pppc:291.88,tcc:50.02},"Jim Stacy":{cm:12,pct_cm:0.479,fce:0.75,resp:2.05,ppc:16.35,pppc:76.31,tcc:24.50},"Scott Reinert":{cm:16,pct_cm:0.6731,fce:0.9375,resp:1.8531,ppc:28.83,pppc:230.66,tcc:50.23},"Vynce Stewart":{cm:9,pct_cm:0.4694,fce:1.0,resp:1.46,ppc:60.19,pppc:270.86,tcc:72.71}},
+   sTeam:{cm:64,pct_cm:0.631,fce:0.8594,resp:1.6786,ppc:31.75,pppc:190.49,tcc:44.26},
+   prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0,pppc:0,tcc:0},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},
+   pTeam:{calls:0,ppc:0,pppc:0,tcc:0},
+   tss:{"Alex Livingston":{cm:10,fce:0.9,resp:1.154,pct_cm:0.3542,pct_ua:0.0555,pct_sh:0.4811,pct_o:0.1647,remote:0.5714},"Tanner Cowan":{cm:39,fce:0.9231,resp:0.8487,pct_cm:0.4604,pct_ua:0.124,pct_sh:0.236,pct_o:0.3036,remote:0.9583}},
+   tTeam:{cm:49,fce:0.9184,resp:0.911,pct_cm:0.4135,pct_ua:0.0937,pct_dca:0.0,pct_sh:0.3443,pct_o:0.2422,remote:0.871},
+   corey:{calls:30,total:50}}
 ];
 
 const SVC=['Chad Mahand','Jimmy Puck','Jim Stacy','Scott Reinert','Vynce Stewart'];
@@ -448,7 +457,7 @@ function render(){
     'February 2026': [0,1,2],
     'March 2026':    [3,4,5,6,7],
     'April 2026':    [8,9,10],
-    'May 2026':      [11,12,13],
+    'May 2026':      [11,12,13,14],
   };
   const curMonth = Object.keys(MONTH_MAP).find(m => MONTH_MAP[m].includes(cw)) || Object.keys(MONTH_MAP)[0];
 
@@ -563,16 +572,30 @@ function renderTrends(){
 // PIPELINE DATA
 // ═══════════════════════════════════════════
 const PIPELINE = [
-  {company:"Bentonville Child Care & Development Center Inc", erp:"AR0217", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Initial Contact",          category:"Existing - Print"},
-  {company:"Berkley Industries LLC",                         erp:"BI01",   current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
-  {company:"Cave Springs City Of",                           erp:"AR0008", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
-  {company:"Decatur Public Schools",                         erp:"AR1309", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
-  {company:"Farris Insurance Agency Inc",                    erp:"FI02",   current:true,  close:"5/31/2026", status:"Forecasted", stage:"Design Proposal/Presentation",category:"Existing - Print"},
-  {company:"Gentry City of",                                 erp:"GC02",   current:true,  close:"5/31/2026", status:"Forecasted", stage:"Negotiation",                category:"Existing - Print"},
-  {company:"Infinity Compounding Solutions LLC",             erp:"AR4543", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
-  {company:"Miller Zell Inc",                                erp:"AR3925", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
-  {company:"Moseley Public Schools",                         erp:"AR0319", current:true,  close:"5/31/2026", status:"Forecasted", stage:"Closed Won",                 category:"Existing - Print"},
-  {company:"Springdale City of Community Engagement",        erp:"SC04",   current:true,  close:"5/31/2026", status:"Forecasted", stage:"Lead",                      category:"Existing - Print"},
+  // ── May 2026 ──────────────────────────────────────────────────
+  {company:"Bentonville Child Care & Development Center Inc", close:"5/31/2026", status:"Forecasted", stage:"Initial Contact",  category:"Existing - Print", current:true},
+  {company:"Eagle Redi-Mix Concrete LLC",                     close:"5/31/2026", status:"Forecasted", stage:"Closed Won",        category:"Existing - Print", current:true},
+  {company:"First Christian Church",                          close:"5/31/2026", status:"Forecasted", stage:"Closed Won",        category:"Existing - Print", current:true},
+  {company:"Moseley Public Schools",                          close:"5/31/2026", status:"Forecasted", stage:"Closed Won",        category:"Existing - Print", current:true},
+  {company:"Salem Lutheran Church",                           close:"5/31/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Sunstar Insurance Group LLC dba Farris Insurance Agency Inc", close:"5/31/2026", status:"Forecasted", stage:"Closed Won", category:"Existing - Print", current:true},
+  // ── June 2026 ─────────────────────────────────────────────────
+  {company:"Agility Center Orthopedics LLC",                  close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Berkley Industries LLC",                          close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Boyles Ventures LLC dba Petland",                 close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Calvary Baptist Church",                          close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Cave Springs City Of",                            close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Country View Animal Care Center Corporation",     close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Decatur Public Schools",                          close:"6/30/2026", status:"Forecasted", stage:"Discovery",         category:"Existing - Print", current:true},
+  {company:"Dorssers USA Inc",                                close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"First Christian Church Eureka Springs Inc",       close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Infinity Compounding Solutions LLC",              close:"6/30/2026", status:"Forecasted", stage:"Negotiation",       category:"Existing - Print", current:true},
+  {company:"Miller Zell Inc",                                 close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Tugg Logistics LLC",                              close:"6/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  // ── July 2026 ─────────────────────────────────────────────────
+  {company:"Multi-Craft Contractors",                         close:"7/30/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Hearth & Home Inc",                               close:"7/31/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
+  {company:"Team 1 Supplier Service LLC",                     close:"7/31/2026", status:"Forecasted", stage:"Lead",              category:"Existing - Print", current:true},
 ];
 
 function stageBadge(stage) {
@@ -580,6 +603,7 @@ function stageBadge(stage) {
   let cls = 'stage-lead';
   if (s.includes('initial contact') || s.includes('contact')) cls = 'stage-contact';
   else if (s.includes('proposal') || s.includes('design'))    cls = 'stage-proposal';
+  else if (s.includes('discovery'))                           cls = 'stage-proposal';
   else if (s.includes('negotiation'))                         cls = 'stage-negotiation';
   else if (s.includes('won'))                                 cls = 'stage-won';
   return `<span class="stage-bdg ${cls}">${esc(stage)}</span>`;
@@ -600,20 +624,35 @@ function renderPipeline() {
     ['Current Clients',current, 'existing accounts',  'pr'],
   ].map(([l,v,s,c]) => `<div class="kpi ${c}" style="border-top:2px solid #0f766e;"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div><div class="kpi-s">${s}</div></div>`).join('');
 
-  $('pipeTh').innerHTML = `<tr>${['Company','ERP #','Current Client','Close Date','Status','Stage','Category'].map(h=>`<th>${h}</th>`).join('')}</tr>`;
+  $('pipeTh').innerHTML = `<tr>${['Company','Close Date','Status','Stage','Category','Current Client'].map(h=>`<th>${h}</th>`).join('')}</tr>`;
 
-  $('pipeTb').innerHTML = PIPELINE.map((d,i) => {
-    const bg = i%2===0 ? '' : 'style="background:rgba(15,118,110,0.04)"';
-    return `<tr ${bg}>
-      <td style="font-weight:600">${esc(d.company)}</td>
-      <td style="color:var(--muted);font-size:0.72rem">${esc(d.erp)}</td>
-      <td style="text-align:center">${d.current ? '<span style="color:#34d399">✓</span>' : '<span style="color:var(--muted)">—</span>'}</td>
-      <td style="color:var(--muted)">${esc(d.close)}</td>
-      <td style="color:var(--muted)">${esc(d.status)}</td>
-      <td>${stageBadge(d.stage)}</td>
-      <td style="color:var(--muted);font-size:0.72rem">${esc(d.category)}</td>
-    </tr>`;
-  }).join('');
+  // Group by close date month
+  const groups = {};
+  PIPELINE.forEach(d => {
+    const mo = d.close.substring(0,d.close.lastIndexOf('/'));
+    const label = (() => { const [m] = d.close.split('/'); const months=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return months[parseInt(m)] + ' 2026'; })();
+    if (!groups[label]) groups[label] = [];
+    groups[label].push(d);
+  });
+
+  let rows = '';
+  let rowIdx = 0;
+  Object.entries(groups).forEach(([month, deals]) => {
+    rows += `<tr><td colspan="6" style="background:rgba(15,118,110,0.18);color:#14b8a6;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 13px;border-bottom:1px solid rgba(15,118,110,0.25)">${esc(month)} — ${deals.length} deal${deals.length>1?'s':''}</td></tr>`;
+    deals.forEach(d => {
+      const bg = rowIdx%2===0 ? '' : 'style="background:rgba(15,118,110,0.04)"';
+      rows += `<tr ${bg}>
+        <td style="font-weight:600">${esc(d.company)}</td>
+        <td style="color:var(--muted)">${esc(d.close)}</td>
+        <td style="color:var(--muted)">${esc(d.status)}</td>
+        <td>${stageBadge(d.stage)}</td>
+        <td style="color:var(--muted);font-size:0.72rem">${esc(d.category)}</td>
+        <td style="text-align:center">${d.current ? '<span style="color:#34d399">✓</span>' : '<span style="color:var(--muted)">—</span>'}</td>
+      </tr>`;
+      rowIdx++;
+    });
+  });
+  $('pipeTb').innerHTML = rows;
 }
 
 function onMonthChange(month) {
@@ -621,7 +660,7 @@ function onMonthChange(month) {
     'February 2026': [0,1,2],
     'March 2026':    [3,4,5,6,7],
     'April 2026':    [8,9,10],
-    'May 2026':      [11,12,13],
+    'May 2026':      [11,12,13,14],
   };
   // Jump to first week of selected month
   const idxs = MONTH_MAP[month] || [0];
