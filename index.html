@@ -392,9 +392,9 @@ const WEEKS=[
 ];
 
 const SVC=['Chad Mahand','Jimmy Puck','Jim Stacy','Scott Reinert','Vynce Stewart'];
-const TSS=['Alex Livingston','Tanner Cowan','Alex Sholar'];
+const TSS=['Alex Livingston','Tanner Cowan'];
 const SCOLS=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ec4899'];
-const TCOLS=['#06b6d4','#f97316','#a78bfa'];
+const TCOLS=['#10b981','#3b82f6','#f97316'];
 const PCOLS=['#d97706','#f59e0b','#fbbf24','#b45309','#fde68a'];
 const WL=WEEKS.map(w=>w.week.replace(/\s*[–—\-]+.*$/,'').trim());
 let cw=WEEKS.length-1, sTrM='fce', tTrM='fce', pTrM='ppc';
@@ -434,7 +434,8 @@ function lineChart(cid,labels,series,opts){
   const W=560,H=210,ml=44,mr=14,mt=14,mb=36,cw=W-ml-mr,ch=H-mt-mb,n=labels.length;
   if(n<2)return;
   const isPct=opts&&opts.pct,isDol=opts&&opts.dol;
-  const all=series.flatMap(s=>s.data);
+  const all=series.flatMap(s=>s.data).filter(v=>v!=null&&!isNaN(v));
+  if(!all.length)return;
   const vmin=Math.min(...all),vmax=Math.max(...all),pad=(vmax-vmin)*0.15||1;
   const lo=Math.max(0,vmin-pad),hi=vmax+pad;
   const xP=i=>ml+(cw/(n-1))*i;
@@ -448,9 +449,10 @@ function lineChart(cid,labels,series,opts){
   }
   labels.forEach((l,i)=>ax+=`<text class="axis-label" x="${xP(i)}" y="${mt+ch+22}" text-anchor="middle">${esc(l)}</text>`);
   series.forEach(s=>{
-    const pts=s.data.map((v,i)=>`${xP(i)},${yP(v)}`).join(' ');
-    paths+=`<polyline class="line-path" points="${pts}" stroke="${s.color}" opacity="0.9"/>`;
+    const validPts=s.data.map((v,i)=>v!=null&&!isNaN(v)?`${xP(i)},${yP(v)}`:null).filter(Boolean);
+    if(validPts.length>1)paths+=`<polyline class="line-path" points="${validPts.join(' ')}" stroke="${s.color}" opacity="0.9"/>`;
     s.data.forEach((v,i)=>{
+      if(v==null||isNaN(v))return;
       const vl=isPct?v.toFixed(1)+'%':isDol?'$'+v.toFixed(1):v.toFixed(2);
       dots+=`<circle cx="${xP(i)}" cy="${yP(v)}" r="4.5" fill="${s.color}" stroke="#080b10" stroke-width="2"><title>${esc(s.name)}: ${vl}</title></circle>`;
     });
@@ -608,13 +610,13 @@ function renderTrends(){
   const ipS=['fce','pct_cm'].includes(sTrM),idS=['ppc','pppc','tcc'].includes(sTrM);
   const ipT=['fce','pct_cm','pct_ua','pct_o','pct_sh','remote'].includes(tTrM);
 
-  lineChart('cSTrend',WL,SVC.map((t,i)=>({name:fn(t),color:SCOLS[i],data:WEEKS.map(w=>ipS?+(w.service[t][sTrM]*100).toFixed(1):+w.service[t][sTrM].toFixed(2))})),{pct:ipS,dol:idS});
+  lineChart('cSTrend',WL,SVC.map((t,i)=>({name:fn(t),color:SCOLS[i],data:WEEKS.map(w=>w.service&&w.service[t]?(ipS?+(w.service[t][sTrM]*100).toFixed(1):+w.service[t][sTrM].toFixed(2)):null)})),{pct:ipS,dol:idS});
   $('sLeg').innerHTML=SVC.map((t,i)=>`<div class="li"><div class="ld" style="background:${SCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
 
-  lineChart('cTTrend',WL,TSS.map((t,i)=>({name:fn(t),color:TCOLS[i],data:WEEKS.map(w=>ipT?+(w.tss[t][tTrM]*100).toFixed(1):+w.tss[t][tTrM].toFixed(2))})),{pct:ipT});
+  lineChart('cTTrend',WL,TSS.map((t,i)=>({name:fn(t),color:TCOLS[i],data:WEEKS.map(w=>w.tss&&w.tss[t]?(ipT?+(w.tss[t][tTrM]*100).toFixed(1):+w.tss[t][tTrM].toFixed(2)):null)})),{pct:ipT});
   $('tLeg').innerHTML=TSS.map((t,i)=>`<div class="li"><div class="ld" style="background:${TCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
 
-  lineChart('cPTrend',WL,SVC.map((t,i)=>({name:fn(t),color:PCOLS[i],data:WEEKS.map(w=>+w.prod[t][pTrM].toFixed(2))})),{dol:true});
+  lineChart('cPTrend',WL,SVC.map((t,i)=>({name:fn(t),color:PCOLS[i],data:WEEKS.map(w=>w.prod&&w.prod[t]?+w.prod[t][pTrM].toFixed(2):null)})),{dol:true});
   $('pLeg').innerHTML=SVC.map((t,i)=>`<div class="li"><div class="ld" style="background:${PCOLS[i]}"></div>${esc(fn(t))}</div>`).join('');
 }
 
