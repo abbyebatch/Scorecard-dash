@@ -194,6 +194,16 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 
 
 <!-- PIPELINE -->
+
+<div class="sh"><div class="pip" style="background:#0ea5e9"></div><h2>Preston Underhill — Coverage</h2><div class="rl"></div></div>
+<div class="corey-card" style="border-color:rgba(14,165,233,0.25)">
+  <div id="cPrestonDonut"></div>
+  <div class="corey-info">
+    <h3>Preston Underhill</h3>
+    <p><strong id="pCalls">—</strong> Contract Visit + Supply Delivery calls this week<br>out of <strong id="pTotal">—</strong> total CV + SD calls across all technicians</p>
+  </div>
+</div>
+
 <div class="sh"><div class="pip" style="background:#0f766e"></div><h2>Production Pipeline</h2><div class="rl"></div></div>
 <div class="pipe-kpis" id="pipeKpis"></div>
 <div class="tw-pipe">
@@ -393,6 +403,8 @@ const WEEKS=[
   {week:"9/21 \u2013 9/25",service:{"Chad Mahand":{cm:18,pct_cm:0.4868,fce:1.0,resp:1.49,ppc:23.62,pppc:212.6,tcc:27.47},"Jimmy Puck":{cm:7,pct_cm:0.3313,fce:0.7143,resp:1.9571,ppc:256.34,pppc:512.68,tcc:273.05},"Jim Stacy":{cm:4,pct_cm:0.0586,fce:0.5,resp:1.2475,ppc:62.44,pppc:124.88,tcc:66.38},"Scott Reinert":{cm:6,pct_cm:0.1437,fce:1.0,resp:1.7867,ppc:25.69,pppc:68.5,tcc:31.81},"Vynce Stewart":{cm:9,pct_cm:0.3599,fce:1.0,resp:1.7722,ppc:55.6,pppc:278.01,tcc:65.33}},sTeam:{cm:44,pct_cm:0.25,fce:0.9091,resp:1.6404,ppc:71.86,pppc:249.13,tcc:79.19},prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:995.43,pppc:1493.15,tcc:1004.07},"Jim Stacy":{ppc:0,pppc:0,tcc:0},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},pTeam:{calls:3,ppc:995.43,pppc:1493.15,tcc:1004.07},tss:{"Alex Livingston":{cm:14,fce:0.9286,resp:0.4043,pct_cm:0.5229,pct_ua:0.141,pct_sh:0.1267,pct_o:0.3504,remote:0.25},"Tanner Cowan":{cm:30,fce:1.0,resp:1.8377,pct_cm:0.6357,pct_ua:0.6148,pct_sh:0.2217,pct_o:0.1426,remote:1.0}},tTeam:{cm:44,pct_dca:0,fce:0.9773,resp:1.3816,pct_cm:0.5998,pct_ua:0.464,pct_sh:0.1915,pct_o:0.2087,remote:0.7614},corey:{calls:39,total:111}}
   ,
   {week:"9/28 \u2013 10/2",service:{"Chad Mahand":{cm:32,pct_cm:0.6806,fce:0.8438,resp:2.3347,ppc:13.88,pppc:111.04,tcc:19.66},"Jimmy Puck":{cm:8,pct_cm:0.5496,fce:0.875,resp:2.4663,ppc:214.76,pppc:644.28,tcc:236.54},"Scott Reinert":{cm:14,pct_cm:0.5735,fce:1.0,resp:4.2907,ppc:13.69,pppc:63.89,tcc:49.24},"Vynce Stewart":{cm:21,pct_cm:0.6456,fce:0.8571,resp:2.581,ppc:31.01,pppc:106.3,tcc:45.68}},sTeam:{cm:75,pct_cm:0.617,fce:0.88,resp:2.7828,ppc:41.93,pppc:194.87,tcc:57.51},prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:716.18,pppc:1432.36,tcc:741.03},"Scott Reinert":{ppc:0.0,pppc:0,tcc:11.2},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},pTeam:{calls:3,ppc:477.45,pppc:1432.36,tcc:497.75},tss:{"Alex Livingston":{cm:11,fce:1.0,resp:0.5118,pct_cm:1.0,pct_ua:0.9177,pct_sh:0.0,pct_o:0.0,remote:1.0},"Tanner Cowan":{cm:23,fce:1.0,resp:2.4396,pct_cm:0.3269,pct_ua:0.1859,pct_sh:0.2094,pct_o:0.4593,remote:0.6667},"Alex Sholar":{cm:1,fce:1.0,resp:2.93,pct_cm:0.5094,pct_ua:0.5094,pct_sh:0.0,pct_o:0.4906,remote:0}},tTeam:{cm:35,pct_dca:0,fce:1.0,resp:1.8477,pct_cm:0.5437,pct_ua:0.4251,pct_sh:0.1376,pct_o:0.3158,remote:0.7524},corey:{calls:91,total:133}}
+  ,
+  {week:"10/5 \u2013 10/9",service:{"Chad Mahand":{cm:15,pct_cm:0.5175,fce:0.9333,resp:1.9153,ppc:75.74,pppc:227.22,tcc:81.43},"Jimmy Puck":{cm:15,pct_cm:0.43,fce:0.8,resp:2.1347,ppc:40.45,pppc:303.4,tcc:45.54},"Scott Reinert":{cm:23,pct_cm:0.6099,fce:0.913,resp:1.8748,ppc:1.65,pppc:18.93,tcc:9.47},"Vynce Stewart":{cm:24,pct_cm:0.5304,fce:0.875,resp:1.7283,ppc:29.44,pppc:245.29,tcc:39.07}},sTeam:{cm:77,pct_cm:0.523,fce:0.8831,resp:1.8877,ppc:32.26,pppc:209.72,tcc:39.73},prod:{"Chad Mahand":{ppc:0,pppc:0,tcc:0},"Jimmy Puck":{ppc:0.0,pppc:0,tcc:3.85},"Scott Reinert":{ppc:0,pppc:0,tcc:0},"Vynce Stewart":{ppc:0,pppc:0,tcc:0}},pTeam:{calls:4,ppc:0.0,pppc:0,tcc:3.85},tss:{"Alex Livingston":{cm:15,fce:1.0,resp:1.162,pct_cm:0.7459,pct_ua:0.2327,pct_sh:0.0,pct_o:0.2541,remote:1.0},"Tanner Cowan":{cm:11,fce:1.0,resp:3.42,pct_cm:0.2523,pct_ua:0.1701,pct_sh:0.158,pct_o:0.5897,remote:1.0},"Alex Sholar":{cm:8,fce:1.0,resp:2.3062,pct_cm:0.4071,pct_ua:0.2184,pct_sh:0.0,pct_o:0.5929,remote:0.75}},tTeam:{cm:34,pct_dca:0,fce:1.0,resp:2.1618,pct_cm:0.5065,pct_ua:0.2091,pct_sh:0.0511,pct_o:0.4424,remote:0.9412},corey:{calls:23,total:145},preston:{calls:42,total:145}}
 ];
 
 const SVC=['Chad Mahand','Jimmy Puck','Scott Reinert','Vynce Stewart'];
@@ -485,7 +497,8 @@ function doughnut(cid,slices){
 }
 
 // ── COREY RING ────────────────────────────────────────────────────
-function coreyRing(cid,pv){
+function coreyRing(cid,pv,color){
+  color=color||'#f97316';
   const R=50,r=36,cx=65,cy=65,sw=pv*Math.PI*2;
   const x1=cx+R*Math.cos(-Math.PI/2),y1=cy+R*Math.sin(-Math.PI/2);
   const x2=cx+R*Math.cos(-Math.PI/2+sw),y2=cy+R*Math.sin(-Math.PI/2+sw);
@@ -494,7 +507,7 @@ function coreyRing(cid,pv){
   const lg=sw>Math.PI?1:0;
   const bg=`<path d="M${cx},${cy-R} A${R},${R} 0 1,1 ${cx-0.001},${cy-R} L${cx-0.001},${cy-r} A${r},${r} 0 1,0 ${cx},${cy-r} Z" fill="#1a2230"/>`;
   const arc=pv>0.001?`<path d="M${x1},${y1} A${R},${R} 0 ${lg},1 ${x2},${y2} L${ix2},${iy2} A${r},${r} 0 ${lg},0 ${ix1},${iy1} Z" fill="#f97316" opacity="0.9"/>`:'';
-  $(cid).innerHTML=`<svg viewBox="0 0 130 130" width="120" height="120">${bg}${arc}<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="15" font-weight="700" fill="#f97316" font-family="Segoe UI,sans-serif">${(pv*100).toFixed(1)}%</text><text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="9" fill="#64748b" font-family="Segoe UI,sans-serif">OF TEAM</text></svg>`;
+  $(cid).innerHTML=`<svg viewBox="0 0 130 130" width="120" height="120">${bg}${arc}<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="15" font-weight="700" fill="${color}" font-family="Segoe UI,sans-serif">${(pv*100).toFixed(1)}%</text><text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="9" fill="#64748b" font-family="Segoe UI,sans-serif">OF TEAM</text></svg>`;
 }
 
 // ═══════════════════════════════════════════
@@ -514,6 +527,7 @@ function render(){
     'July 2026':      [20,21,22,23],
     'August 2026':    [24,25,26,27,28],
     'September 2026': [29,30,31,32],
+    'October 2026':  [33],
   };
   const curMonth = Object.keys(MONTH_MAP).find(m => MONTH_MAP[m].includes(cw)) || Object.keys(MONTH_MAP)[0];
 
@@ -578,6 +592,12 @@ function render(){
   // ── Corey
   coreyRing('cCoreyDonut',d.corey.calls/d.corey.total);
   $('cCalls').textContent=d.corey.calls;
+  // Preston
+  if(d.preston){
+    coreyRing('cPrestonDonut',d.preston.calls/d.preston.total,'#0ea5e9');
+    $('pCalls').textContent=d.preston.calls;
+    $('pTotal').textContent=d.preston.total;
+  }
   $('cTotal').textContent=d.corey.total;
 
   // ── Bar charts
@@ -724,6 +744,7 @@ function onMonthChange(month) {
     'July 2026':      [20,21,22,23],
     'August 2026':    [24,25,26,27,28],
     'September 2026': [29,30,31,32],
+    'October 2026':  [33],
   };
   // Jump to first week of selected month
   const idxs = MONTH_MAP[month] || [0];
