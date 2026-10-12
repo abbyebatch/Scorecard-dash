@@ -195,8 +195,8 @@ tbody td:first-child{text-align:left;font-weight:600;font-size:0.8rem;}
 
 <!-- PIPELINE -->
 
-<div class="sh"><div class="pip" style="background:#0ea5e9"></div><h2>Preston Underhill — Coverage</h2><div class="rl"></div></div>
-<div class="corey-card" style="border-color:rgba(14,165,233,0.25)">
+<div id="prestonSection" class="sh"><div class="pip" style="background:#0ea5e9"></div><h2>Preston Underhill — Coverage</h2><div class="rl"></div></div>
+<div id="prestonCard" class="corey-card" style="border-color:rgba(14,165,233,0.25)">
   <div id="cPrestonDonut"></div>
   <div class="corey-info">
     <h3>Preston Underhill</h3>
@@ -442,12 +442,12 @@ function barChart(cid,labels,values,colors,opts){
     bars+=`<text class="bar-val" x="${x+bw/2}" y="${y-4}" text-anchor="middle">${vl}</text>`;
     bars+=`<text class="bar-label" x="${x+bw/2}" y="${mt+ch+20}" text-anchor="middle">${esc(sh)}</text>`;
   });
-  $(cid).innerHTML=`<svg class="bar-svg" viewBox="0 0 ${W} ${H}">${g}${gl}${bars}</svg>`;
+  $(cid).innerHTML=`<svg class="bar-svg" viewBox="0 0 ${W} ${H}" style="width:100%">${g}${gl}${bars}</svg>`;
 }
 
 // ── SVG LINE CHART ────────────────────────────────────────────────
 function lineChart(cid,labels,series,opts){
-  const W=560,H=210,ml=44,mr=14,mt=14,mb=36,cw=W-ml-mr,ch=H-mt-mb,n=labels.length;
+  const W=720,H=210,ml=44,mr=14,mt=14,mb=36,cw=W-ml-mr,ch=H-mt-mb,n=labels.length;
   if(n<2)return;
   const isPct=opts&&opts.pct,isDol=opts&&opts.dol;
   const all=series.flatMap(s=>s.data).filter(v=>v!=null&&!isNaN(v));
@@ -463,7 +463,8 @@ function lineChart(cid,labels,series,opts){
     const lv=isPct?v.toFixed(0)+'%':isDol?'$'+v.toFixed(0):v.toFixed(1);
     ay+=`<text class="axis-label" x="${ml-5}" y="${y+4}" text-anchor="end">${lv}</text>`;
   }
-  labels.forEach((l,i)=>ax+=`<text class="axis-label" x="${xP(i)}" y="${mt+ch+22}" text-anchor="middle">${esc(l)}</text>`);
+  const step=Math.ceil(n/8);
+  labels.forEach((l,i)=>{if(i%step===0||i===n-1)ax+=`<text class="axis-label" x="${xP(i)}" y="${mt+ch+22}" text-anchor="middle">${esc(l)}</text>`;});
   series.forEach(s=>{
     const validPts=s.data.map((v,i)=>v!=null&&!isNaN(v)?`${xP(i)},${yP(v)}`:null).filter(Boolean);
     if(validPts.length>1)paths+=`<polyline class="line-path" points="${validPts.join(' ')}" stroke="${s.color}" opacity="0.9"/>`;
@@ -473,7 +474,7 @@ function lineChart(cid,labels,series,opts){
       dots+=`<circle cx="${xP(i)}" cy="${yP(v)}" r="4.5" fill="${s.color}" stroke="#080b10" stroke-width="2"><title>${esc(s.name)}: ${vl}</title></circle>`;
     });
   });
-  $(cid).innerHTML=`<svg class="bar-svg" viewBox="0 0 ${W} ${H}">${g}${ay}${ax}${paths}${dots}</svg>`;
+  $(cid).innerHTML=`<svg class="bar-svg" viewBox="0 0 ${W} ${H}" style="width:100%">${g}${ay}${ax}${paths}${dots}</svg>`;
 }
 
 // ── DOUGHNUT ──────────────────────────────────────────────────────
@@ -592,11 +593,18 @@ function render(){
   // ── Corey
   coreyRing('cCoreyDonut',d.corey.calls/d.corey.total);
   $('cCalls').textContent=d.corey.calls;
-  // Preston
-  if(d.preston){
+  // Preston - only show if data exists for this week
+  const prestonSection=$('prestonSection');
+  const prestonCard=$('prestonCard');
+  if(d.preston&&d.preston.calls>=0){
+    if(prestonSection)prestonSection.style.display='';
+    if(prestonCard)prestonCard.style.display='';
     coreyRing('cPrestonDonut',d.preston.calls/d.preston.total,'#0ea5e9');
     $('pCalls').textContent=d.preston.calls;
     $('pTotal').textContent=d.preston.total;
+  } else {
+    if(prestonSection)prestonSection.style.display='none';
+    if(prestonCard)prestonCard.style.display='none';
   }
   $('cTotal').textContent=d.corey.total;
 
